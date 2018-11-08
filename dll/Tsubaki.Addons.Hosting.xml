@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tsubaki.Addons.Hosting</name>
+    </assembly>
+    <members>
+        <member name="T:Tsubaki.Addons.Hosting.AddonProvider">
+            <summary>
+            The add-ons provider.
+            </summary>
+        </member>
+        <member name="P:Tsubaki.Addons.Hosting.AddonProvider.Provider">
+            <summary>
+            Gets the provider.
+            </summary>
+            <value>
+            The provider.
+            </value>
+        </member>
+        <member name="M:Tsubaki.Addons.Hosting.AddonProvider.Execute(System.String[],System.String[],System.Object@)">
+            <summary>
+            Executes the specified domains.
+            </summary>
+            <param name="domains">The domains.</param>
+            <param name="args">The arguments.</param>
+            <param name="callback">The callback.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tsubaki.Addons.Hosting.AddonProvider.Get(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Gets the specified <see cref="T:Tsubaki.Addons.Interfaces.IAddon"/>.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
+            <param name="advanceSearch">if set to <c>true</c> [advance search].</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">message - name</exception>
+            <exception cref="T:Tsubaki.Addons.Hosting.Internal.AddonNotFoundException"></exception>
+        </member>
+        <member name="P:Tsubaki.Addons.Hosting.AddonProvider.Item(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Gets the <see cref="T:Tsubaki.Addons.Interfaces.IAddon"/> with the specified name.
+            </summary>
+            <value>
+            The <see cref="T:Tsubaki.Addons.Interfaces.IAddon"/>.
+            </value>
+            <param name="name">The name.</param>
+            <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
+            <param name="advanceSearch">if set to <c>true</c> [advance search].</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tsubaki.Addons.Hosting.ExecutedResult">
+            <summary>
+            </summary>
+        </member>
+        <member name="F:Tsubaki.Addons.Hosting.ExecutedResult.NoAddon">
+            <summary>
+            The no addon
+            </summary>
+        </member>
+        <member name="F:Tsubaki.Addons.Hosting.ExecutedResult.Disabled">
+            <summary>
+            The disabled
+            </summary>
+        </member>
+        <member name="F:Tsubaki.Addons.Hosting.ExecutedResult.NoMatched">
+            <summary>
+            The no matched
+            </summary>
+        </member>
+        <member name="F:Tsubaki.Addons.Hosting.ExecutedResult.Failure">
+            <summary>
+            The failure
+            </summary>
+        </member>
+        <member name="F:Tsubaki.Addons.Hosting.ExecutedResult.Success">
+            <summary>
+            The success
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,5 +1,5 @@
 ﻿
-namespace Tsubaki.Dreamer.Messaging
+namespace Tsubaki.Messaging
 {
     using System;
 
@@ -12,6 +12,6 @@ namespace Tsubaki.Dreamer.Messaging
             this.Payload = message;
         }
 
-        internal string Payload { get;  }
+        internal string Payload { get; } 
     }
 }

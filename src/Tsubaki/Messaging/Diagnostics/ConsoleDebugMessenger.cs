@@ -1,7 +1,8 @@
 ﻿
-namespace Tsubaki.Dreamer.Messaging.Diagnostics
+namespace Tsubaki.Messaging.Diagnostics
 {
     using System;
+    using Tsubaki.Messaging.Endpoints;
 
 #if DEBUG
     public sealed class ConsoleDebugMessenger : MessengerBase

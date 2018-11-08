@@ -1,5 +1,5 @@
 ﻿
-namespace Tsubaki.Dreamer.Messaging
+namespace Tsubaki.Messaging.Endpoints
 {
     using System;
 
