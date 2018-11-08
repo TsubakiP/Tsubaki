@@ -13,30 +13,18 @@ namespace Tsubaki.ConsoleDebugger
     using Tsubaki.Messaging.Dialogflow;
     using Tsubaki.Messaging.Endpoints;
     using Newtonsoft.Json;
+    using Tsubaki.Addons.Hosting;
+
     class Program
     {
 
+        [STAThread]
         static void Main(string[] args)
         {
-            /*
-            var df = new Agent(false);
-            var s = df.QueryAsync(new MessageBody("今天天氣如何"));
-            var json = JsonConvert.SerializeObject(s, Formatting.Indented);
-            Console.WriteLine(json);
-            Console.ReadKey();
-            return;*/
 
-            var textM = new ConsoleDebugMessenger();
-            var lighthouse = new Lighthouse(false);
-            var m = new MessageBody("今天天氣如何");
+            var from = new SampleForm();
+            from.ShowDialog();
 
-            using (lighthouse.Register(textM))
-            {
-                textM.Send(m);
-            }
-
-            
-            Console.ReadKey();
         }
     }
 }

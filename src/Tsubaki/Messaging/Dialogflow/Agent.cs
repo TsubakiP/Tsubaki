@@ -23,14 +23,14 @@ namespace Tsubaki.Messaging.Dialogflow
 
         public bool DevelopMode { get; }
 
-        [Route("./secret.yml")]
+        private const string SECRET_YML = "secret.yml";
+
+        [Route(SECRET_YML)]
         private class Config : SelfDisciplined<Config>
         {
             public string Client { get; private set; }
             public string Developer { get; private set; }
         }
-
-
 
         public Agent(bool developMode = false)
         {
@@ -51,12 +51,10 @@ namespace Tsubaki.Messaging.Dialogflow
             }
             else
             {
-                throw new TsubakiException("Unable to load config file 'secret.yml'.");
+                throw new TsubakiException($"Unable to load config file '{SECRET_YML}'.");
             }
             this.DevelopMode = developMode;
         }
-
-
 
         public async Task<QueryResponseModel> QueryAsync(MessageBody message, CancellationToken token = default)
         {
@@ -70,30 +68,26 @@ namespace Tsubaki.Messaging.Dialogflow
             }
             return default;
         }
+
         public IEnumerable<EntityResponseModel> GetEntities()
         {
-
             return EntityService.GetEntities(this._config);
         }
-            public async Task<IEnumerable<EntityResponseModel>> GetEntitiesAsync( CancellationToken token = default)
+
+        public async Task<IEnumerable<EntityResponseModel>> GetEntitiesAsync(CancellationToken token = default)
         {
             try
             {
-                return await Task.Run(() => ApiAi.EntityService.GetEntities(this._config), token);
+                return await Task.Run(() => EntityService.GetEntities(this._config), token);
             }
             catch (AggregateException ae)
             {
                 foreach (var item in ae.InnerExceptions)
                 {
-                    System.Diagnostics.Debug.WriteLine(item.Message);
+                    Debug.WriteLine(item.Message);
                 }
             }
             return default;
         }
-       
     }
-    
-
-
-
 }

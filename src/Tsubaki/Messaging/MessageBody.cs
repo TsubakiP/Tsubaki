@@ -12,6 +12,7 @@ namespace Tsubaki.Messaging
             this.Payload = message; 
         }
 
-        internal string Payload { get; } 
+        internal string Payload { get; }
+        public override string ToString() => this.Payload;
     }
 }

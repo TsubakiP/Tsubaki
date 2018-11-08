@@ -6,6 +6,7 @@ namespace Tsubaki.Addons.Hosting.Internal
 {
     using System;
     using System.ComponentModel.Composition.Hosting;
+    using System.Diagnostics;
     using System.IO;
 
     internal static class AddonUtils
@@ -19,7 +20,7 @@ namespace Tsubaki.Addons.Hosting.Internal
 
             foreach (var assembly in asms)
             {
-                //Debug.WriteLine("Prepare assembly catalog for composition: " + assembly.FullName);
+                System.Diagnostics.Debug.WriteLine("asm: "+assembly);
                 catalog.Catalogs.Add(new AssemblyCatalog(assembly));
             }
 #endif

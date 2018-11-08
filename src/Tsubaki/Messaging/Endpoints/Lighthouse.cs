@@ -8,6 +8,7 @@ namespace Tsubaki.Messaging.Endpoints
     using System.Threading.Tasks;
     using Tsubaki.Messaging.Dialogflow;
     using Tsubaki.Addons.Hosting;
+    using System.Diagnostics;
     partial class Lighthouse
     {
         private sealed class Disposer : IDisposable
@@ -24,6 +25,7 @@ namespace Tsubaki.Messaging.Endpoints
             {
                 this._messenger.Send -= this._lighthouse.OnReceived;
                 this._lighthouse.Send -= this._messenger.OnReceived;
+                Debug.WriteLine("disposed");
             }
         }
 
@@ -54,13 +56,26 @@ namespace Tsubaki.Messaging.Endpoints
         {
             var result = await this._agent.QueryAsync(e.Message);
             var parameters = result.Parameters;
-            var executed = AddonProvider.Provider.Execute(parameters.Keys.ToArray(), parameters.Values.ToArray(), out var callback);
-            if(executed == ExecutedResult.Success)
+            foreach (var item in parameters.Keys)
             {
-                this.Send?.Invoke(this, new ReceivedMessageEventArgs(new MessageBody()));
+                Debug.WriteLine("Key: "+ item); 
+            }
+            Debug.WriteLine("");
+            var executed = AddonProvider.Addons.Execute(parameters.Keys.ToArray(), parameters.Values.ToArray(), out var callback);
+            if (executed == ExecutedResult.Success)
+            {
+                var msg = callback as string;
+                Console.WriteLine(msg);
+                this.Send?.Invoke(this, new ReceivedMessageEventArgs(new MessageBody(msg)));
+                Console.WriteLine(this.Send == null);
+
+            }
+            else
+            {
+                Debug.WriteLine("Failure: "+executed);
             }
 
-
+            /*
             bool TryRandomTaker(IEnumerable<string> messages, out string once)
             {
                 once = "";
@@ -80,6 +95,7 @@ namespace Tsubaki.Messaging.Endpoints
                 }
 
             }
+            */
         }
         
     }

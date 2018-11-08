@@ -49,7 +49,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddonProvider.cs" />
+    <Compile Include="Addons.cs" />
     <Compile Include="Internal\AddonUtils.cs" />
     <Compile Include="ExecutedResult.cs" />
     <Compile Include="Internal\AddonNotFoundException.cs" />

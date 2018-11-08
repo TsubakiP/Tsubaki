@@ -18,12 +18,12 @@ namespace Tsubaki.Addons.Hosting
     public sealed class AddonProvider
     {
         /// <summary>
-        /// Gets the provider.
+        /// Gets the Addons.
         /// </summary>
         /// <value>
         /// The provider.
         /// </value>
-        public static AddonProvider Provider
+        public static AddonProvider Addons
         {
             get
             {
@@ -51,18 +51,25 @@ namespace Tsubaki.Addons.Hosting
         private AddonProvider()
         {
             var aggregate = new AggregateCatalog();
-            AddonUtils.AddDirectories(aggregate, PATH);
             AddonUtils.AddAssemblies(aggregate);
+            AddonUtils.AddDirectories(aggregate, PATH);
 
             this._container = new LazyContainer<IAddon, IAddonMetadata>(aggregate).ToList();
 
 #if DEBUG
-            Debug.WriteLine("---");
+            Debug.WriteLine("Loading addons...");
             foreach (var item in this._container)
             {
-                Debug.WriteLine(item.Metadata.Id);
+                var s = string.IsNullOrWhiteSpace(item.Metadata.Id) ? "<unnamed addon>" : item.Metadata.Id;
+                Debug.WriteLine( s);
             }
 #endif
+        }
+
+        public string[] GetAddonsNames()
+        {
+            var names = this._container.Select(x => x.Metadata.Id).ToArray();
+            return names;
         }
 
         /// <summary>
