@@ -51,7 +51,7 @@ namespace Tsubaki.Messaging.Dialogflow
             }
             else
             {
-                throw new TsubakiException("Unable to load config file.");
+                throw new TsubakiException("Unable to load config file 'secret.yml'.");
             }
             this.DevelopMode = developMode;
         }

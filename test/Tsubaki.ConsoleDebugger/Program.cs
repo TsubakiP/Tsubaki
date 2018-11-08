@@ -1,5 +1,5 @@
 ﻿
-namespace Tsubaki.Dreamer.ConsoleDebugger
+namespace Tsubaki.ConsoleDebugger
 {
     using System;
     using System.Collections.Generic;
@@ -18,43 +18,24 @@ namespace Tsubaki.Dreamer.ConsoleDebugger
 
         static void Main(string[] args)
         {
+            /*
             var df = new Agent(false);
             var s = df.QueryAsync(new MessageBody("今天天氣如何"));
             var json = JsonConvert.SerializeObject(s, Formatting.Indented);
             Console.WriteLine(json);
             Console.ReadKey();
-            return;
+            return;*/
 
             var textM = new ConsoleDebugMessenger();
             var lighthouse = new Lighthouse(false);
             var m = new MessageBody("今天天氣如何");
-            textM.Send(m);
-
 
             using (lighthouse.Register(textM))
             {
                 textM.Send(m);
             }
 
-
-            Console.ReadKey();
-            return;
-           
-            /*
-            var textM = new ConsoleDebugMessenger();
-            var lighthouse = new Lighthouse();
-            var m = new MessageBody("123");
-            textM.Send(m);
-
-
-            using (lighthouse.Register(textM))
-            {
-                textM.Send(m);
-                lighthouse.Send(m);
-            }
-
-            lighthouse.Send(m);
-           */
+            
             Console.ReadKey();
         }
     }

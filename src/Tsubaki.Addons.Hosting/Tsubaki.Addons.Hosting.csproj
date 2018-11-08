@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{01D4CB7F-20C8-4E8C-9AAB-BE9018D5C794}</ProjectGuid>
+    <ProjectGuid>{4E813BE1-D07E-49D9-8405-AAB38587B796}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tsubaki</RootNamespace>
-    <AssemblyName>Tsubaki</AssemblyName>
+    <RootNamespace>Tsubaki.Addons.Hosting</RootNamespace>
+    <AssemblyName>Tsubaki.Addons.Hosting</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.2</LangVersion>
+    <DocumentationFile>bin\Debug\Tsubaki.Addons.Hosting.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,47 +40,24 @@
     <AssemblyOriginatorKeyFile>Tsubaki.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ApiAi.Signed, Version=1.1.5.6885, Culture=neutral, PublicKeyToken=dfaea0e7d4ecc0bb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dll\ApiAi.Signed.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dll\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
     <Reference Include="YamlDotNet, Version=5.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\YamlDotNet.Signed.5.2.1\lib\net45\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Messaging\Diagnostics\ConsoleDebugMessenger.cs" />
-    <Compile Include="Messaging\Dialogflow\Agent.cs" />
-    <Compile Include="Messaging\IMessenger.cs" />
-    <Compile Include="Messaging\Endpoints\Lighthouse.cs" />
-    <Compile Include="Messaging\MessageBody.cs" />
-    <Compile Include="Messaging\Endpoints\MessengerBase.cs" />
-    <Compile Include="TsubakiException.cs" />
+    <Compile Include="AddonProvider.cs" />
+    <Compile Include="Internal\AddonUtils.cs" />
+    <Compile Include="ExecutedResult.cs" />
+    <Compile Include="Internal\AddonNotFoundException.cs" />
+    <Compile Include="Internal\Diff.cs" />
+    <Compile Include="Internal\LazyContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Messaging\ReceivedMessageEventArgs.cs" />
-    <Compile Include="Messaging\SentMessageEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Tsubaki.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj">
-      <Project>{4e813be1-d07e-49d9-8405-aab38587b796}</Project>
-      <Name>Tsubaki.Addons.Hosting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tsubaki.Addons\Tsubaki.Addons.csproj">
       <Project>{1c2356a5-c4f7-47f3-8506-cf7ebc753193}</Project>
       <Name>Tsubaki.Addons</Name>
@@ -88,6 +66,10 @@
       <Project>{78c0c11c-089a-487e-af6a-48766e2b384a}</Project>
       <Name>Tsubaki.Configuration</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Tsubaki.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
