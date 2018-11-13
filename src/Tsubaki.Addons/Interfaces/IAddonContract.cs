@@ -6,21 +6,23 @@ namespace Tsubaki.Addons.Interfaces
 {
     using System.ComponentModel;
     using System.ComponentModel.Composition;
-    using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Provides basic functions for the add-on.
+    /// Provides contracts for the addon.
     /// </summary>
-    [InheritedExport]
-    [Guid("7515B7B4-76C5-40EB-9EA8-65E1AC6E7FCD")]
-    [EditorBrowsable(EditorBrowsableState.Advanced)]
-    public interface IAddon
+    [InheritedExport] 
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public interface IAddonContract : IAddonActivation
     {
+
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAddon"/> is enabled.
+        /// Gets the definition.
         /// </summary>
-        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
-        bool Enabled { get; set; }
+        /// <value>
+        /// The definition.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        IAddonDefinition Definition { get; }
 
         /// <summary>
         /// Executes the action.
@@ -28,6 +30,7 @@ namespace Tsubaki.Addons.Interfaces
         /// <param name="args"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         bool? Execute(string[] args, out object callback);
     }
 }

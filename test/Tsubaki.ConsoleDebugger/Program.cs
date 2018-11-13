@@ -14,6 +14,7 @@ namespace Tsubaki.ConsoleDebugger
     using Tsubaki.Messaging.Endpoints;
     using Newtonsoft.Json;
     using Tsubaki.Addons.Hosting;
+    using Tsubaki.Addons.Interfaces;
 
     class Program
     {
@@ -21,10 +22,27 @@ namespace Tsubaki.ConsoleDebugger
         [STAThread]
         static void Main(string[] args)
         {
+            var ss = AddonProvider.Addons.Get("Fake").Enabled;
+            AddonProvider.Addons.Get("Fake").Enabled = false;
+            Console.WriteLine(ss);
+//            AddonProvider.Addons.Get("Fake").Metadata.Enabled = true;
 
+
+            Console.ReadKey();
+            return;
             var from = new SampleForm();
             from.ShowDialog();
 
+        }
+
+        [Addons.Addon("Fake", "fake")]
+        public class Fake : Addons.Addon
+        {
+            protected override bool ExecuteImpl(string[] args, ref object callback)
+            {
+                Console.WriteLine("FAKE!!!");
+                return true;
+            }
         }
     }
 }

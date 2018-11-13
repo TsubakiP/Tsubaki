@@ -30,15 +30,17 @@ namespace Tsubaki.ConsoleDebugger
             var names = AddonProvider.Addons.GetAddonsNames();
             foreach (var name in names)
             {
-                var str = $"{name} ({(AddonProvider.Addons[name].Enabled ? "disable" : "enable")})";
+                /*
+                var str = $"{name} ({(AddonProvider.Addons[name].Metadata.Enabled ? "disable" : "enable")})";
                 var btn = new ToolStripMenuItem(str);
                 btn.Click += (s, _) =>
                 {
-                    var status = !AddonProvider.Addons[name].Enabled;
+                    var status = !AddonProvider.Addons[name].Metadata.Enabled;
                     btn.Text = $"{name} ({(status ? "disable" : "enable")})";
-                    AddonProvider.Addons[name].Enabled = status;
+//                    AddonProvider.Addons[name].Metadata.Enabled = status;
                 };
                 this.addonsToolStripMenuItem.DropDownItems.Add(btn);
+                */
             }
 
 

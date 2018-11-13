@@ -46,7 +46,7 @@ namespace Tsubaki.Addons.Hosting
 
         private const string PATH = "./Addons";
 
-        private readonly List<Lazy<IAddon, IAddonMetadata>> _container;
+        private readonly List<Lazy<IAddonContract, IAddonDefinition>> _container;
 
         private AddonProvider()
         {
@@ -54,13 +54,13 @@ namespace Tsubaki.Addons.Hosting
             AddonUtils.AddAssemblies(aggregate);
             AddonUtils.AddDirectories(aggregate, PATH);
 
-            this._container = new LazyContainer<IAddon, IAddonMetadata>(aggregate).ToList();
+            this._container = new LazyContainer<IAddonContract, IAddonDefinition>(aggregate).ToList();
 
 #if DEBUG
             Debug.WriteLine("Loading addons...");
             foreach (var item in this._container)
             {
-                var s = string.IsNullOrWhiteSpace(item.Metadata.Id) ? "<unnamed addon>" : item.Metadata.Id;
+                var s = string.IsNullOrWhiteSpace(item.Metadata.Name) ? "<unnamed addon>" : item.Metadata.Name;
                 Debug.WriteLine( s);
             }
 #endif
@@ -68,7 +68,7 @@ namespace Tsubaki.Addons.Hosting
 
         public string[] GetAddonsNames()
         {
-            var names = this._container.Select(x => x.Metadata.Id).ToArray();
+            var names = this._container.Select(x => x.Metadata.Name).ToArray();
             return names;
         }
 
@@ -106,7 +106,7 @@ namespace Tsubaki.Addons.Hosting
                 default:
                     {
                         var top_v = 0.0;
-                        var a = default(Lazy<IAddon, IAddonMetadata>);
+                        var a = default(Lazy<IAddonContract, IAddonDefinition>);
                         foreach (var m in this._container)
                         {
                             var diff = Diff.Compare(m.Metadata.Domains, domains);
@@ -133,7 +133,7 @@ namespace Tsubaki.Addons.Hosting
         }
 
         /// <summary>
-        /// Gets the specified <see cref="IAddon"/>.
+        /// Gets the specified <see cref="IAddonContract"/>.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
@@ -141,7 +141,7 @@ namespace Tsubaki.Addons.Hosting
         /// <returns></returns>
         /// <exception cref="System.ArgumentException">message - name</exception>
         /// <exception cref="Hosting.Internal.AddonNotFoundException"></exception>
-        public IAddon Get(string name, bool ignoreCase = false, bool advanceSearch = false)
+        public IAddonContract Get(string name, bool ignoreCase = false, bool advanceSearch = false)
         {
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("message", nameof(name));
@@ -150,12 +150,12 @@ namespace Tsubaki.Addons.Hosting
                 ? StringComparison.CurrentCultureIgnoreCase
                 : StringComparison.CurrentCulture;
 
-            bool Advance(Lazy<IAddon, IAddonMetadata> lz)
-                => string.Equals(lz.Metadata.Id ?? lz.Value.GetType().Name, name, ic);
-            bool Normal(Lazy<IAddon, IAddonMetadata> lz)
-                => string.Equals(lz.Metadata.Id, name, ic);
+            bool Advance(Lazy<IAddonContract, IAddonDefinition> lz)
+                => string.Equals(lz.Metadata.Name ?? lz.Value.GetType().Name, name, ic);
+            bool Normal(Lazy<IAddonContract, IAddonDefinition> lz)
+                => string.Equals(lz.Metadata.Name, name, ic);
 
-            var comparer = advanceSearch ? (Func<Lazy<IAddon, IAddonMetadata>, bool>)Advance : Normal;
+            var comparer = advanceSearch ? (Func<Lazy<IAddonContract, IAddonDefinition>, bool>)Advance : Normal;
 
             foreach (var lazy in this._container)
             {
@@ -167,16 +167,16 @@ namespace Tsubaki.Addons.Hosting
         }
 
         /// <summary>
-        /// Gets the <see cref="IAddon"/> with the specified name.
+        /// Gets the <see cref="IAddonContract"/> with the specified name.
         /// </summary>
         /// <value>
-        /// The <see cref="IAddon"/>.
+        /// The <see cref="IAddonContract"/>.
         /// </value>
         /// <param name="name">The name.</param>
         /// <param name="ignoreCase">if set to <c>true</c> [ignore case].</param>
         /// <param name="advanceSearch">if set to <c>true</c> [advance search].</param>
         /// <returns></returns>
-        public IAddon this[string name, bool ignoreCase = false, bool advanceSearch = false]
+        public IAddonContract this[string name, bool ignoreCase = false, bool advanceSearch = false]
             => this.Get(name,ignoreCase,advanceSearch);
     }
 }

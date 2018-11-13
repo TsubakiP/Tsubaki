@@ -5,27 +5,28 @@
 namespace Tsubaki.Addons.Interfaces
 {
     using System.ComponentModel;
-    using System.Runtime.InteropServices;
 
     /// <summary>
-    /// Provides the metadata for the developer to identify add-on.
-    /// </summary>
-    [Guid("CAFEFF06-0CFC-4605-A057-96365F0DADB3")]
+    /// Provides the definition for the developer to identify addon.
+    /// </summary> 
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IAddonMetadata
+    public interface IAddonDefinition
     {
+
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        string Name { get; }
+
         /// <summary>
         /// Gets the domains.
         /// </summary>
         /// <value>The domains.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         string[] Domains { get; }
-
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        string Id { get; }
     }
 }

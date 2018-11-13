@@ -9,7 +9,7 @@ namespace Tsubaki.Configuration.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class RouteAttribute : Attribute
     {
-        internal string File { get; }
+        internal string File { get; set; }
 
         public RouteAttribute(string file)
         {

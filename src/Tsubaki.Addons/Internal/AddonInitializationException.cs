@@ -18,4 +18,12 @@ namespace Tsubaki.Addons.Internal
             this.Reason = reason;
         }
     }
+
+    internal sealed class DevelopmentException: Exception
+    {
+        internal DevelopmentException()
+        {
+
+        }
+    }
 }

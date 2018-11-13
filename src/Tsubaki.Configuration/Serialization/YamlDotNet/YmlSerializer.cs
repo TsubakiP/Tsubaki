@@ -14,7 +14,7 @@ namespace Tsubaki.Configuration.Serialization.YamlDotNet
     using YamlSerializer = global::YamlDotNet.Serialization.Serializer;
 
     public sealed class YmlSerializer : ISerializer
-    {
+    { 
         private readonly YamlDeserializer _deserializer;
         private readonly YamlSerializer _serializer;
 
