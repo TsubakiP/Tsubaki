@@ -8,23 +8,23 @@ namespace Tsubaki.Addons
     using System.ComponentModel.Composition;
     using System.Runtime.InteropServices;
 
-    using Tsubaki.Addons.Interfaces;
+    using Tsubaki.Configuration;
+    using Tsubaki.Addons.Contracts;
+
+    using System.Collections.Generic;
+    using System.Collections;
 
     /// <summary>
-    /// Basic information about tagging add-ons
+    /// Basic information about tagging addons
     /// </summary>
-    /// <seealso cref="ExportAttribute"/>
-    /// <seealso cref="IAddonMetadata"/>
+    /// <seealso cref="System.ComponentModel.Composition.ExportAttribute" />
+    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonDefinition" />
+    /// <seealso cref="ExportAttribute" />
+    /// <seealso cref="IAddonDefinition" />
     [MetadataAttribute]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    [Guid("8A984DF7-08AB-4ACF-A308-758697A1A0BE")]
-    public sealed class AddonAttribute : ExportAttribute, IAddonMetadata
+    public sealed class AddonAttribute : ExportAttribute, IAddonDefinition, IAddonActivation
     {
-        /// <summary>
-        /// The name of the add-ons
-        /// </summary>
-        public string Name = null;
-
         /// <summary>
         /// Gets the domains.
         /// </summary>
@@ -32,20 +32,61 @@ namespace Tsubaki.Addons
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string[] Domains { get; }
 
-        /// <summary>
-        /// Gets the identifier.
-        /// </summary>
-        /// <value>The identifier.</value>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Id => this.Name;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddonAttribute"/> class.
+        /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public string Name { get; }
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddonAttribute" /> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
         /// <param name="domains">The domains.</param>
-        public AddonAttribute(params string[] domains) : base(typeof(IAddon))
+        public AddonAttribute(string name, params string[] domains) : base(typeof(IAddonContract))
         {
+            this.Name = string.IsNullOrWhiteSpace(name) ? this.GetType().GUID.ToString() : name;
+
             this.Domains = domains;
+
+            this._config = AddonConfig.Load(this.Name);
+            if (!this._config.Enabled.HasValue)
+            {
+                this.Enabled = true;
+            }
         }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="IAddonContract" /> is enabled.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public bool Enabled
+        {
+            get
+            {
+                return this._config.Enabled.Value;
+            }
+            set
+            {
+                this._config.Enabled = value;
+                this._config.Save(this.Name);
+            }
+        }
+        private　readonly　AddonConfig _config;
+
+
+        private class AddonConfig : SelfDisciplined<AddonConfig>
+        {
+            public bool? Enabled { get; set; } 
+        }
+        
     }
 }

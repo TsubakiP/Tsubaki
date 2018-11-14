@@ -26,13 +26,37 @@ namespace Tsubaki.Configuration
             set => s_serializer = value;
         }
 
+        protected SelfDisciplined()
+        {
+
+        }
+
+        private SelfDisciplined(string filename)
+        {
+            this._filename = filename;
+        }
+
+        private readonly string _filename;
+
         public static T Load(bool createWithoutThrown = true)
         {
             var type = typeof(T);
             var file = type.GetCustomAttribute<RouteAttribute>() is RouteAttribute cf ? cf.File ?? type.Name : type.Name;
-            var f = new FileInfo(file);
+            return Load(file, createWithoutThrown);
+        }
+        public static T Load(string filename, bool createWithoutThrown = true)
+        {
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentException(nameof(filename));
+
+            var f = new FileInfo(filename);
             if (!f.Exists)
-                return new T();
+            {
+                if (createWithoutThrown)
+                    return new T();
+                else
+                    throw new FileNotFoundException("file not found");
+            }
 
             var result = default(T);
             using (var fs = f.Open(FileMode.OpenOrCreate))
@@ -54,7 +78,14 @@ namespace Tsubaki.Configuration
         {
             var type = this.GetType();
             var file = type.GetCustomAttribute<RouteAttribute>() is RouteAttribute cf ? cf.File ?? type.Name : type.Name;
-            var f = new FileInfo(file);
+            return this.Save(file);
+        }
+
+        public bool Save(string filename)
+        {
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentException(nameof(filename));
+            var f = new FileInfo(filename);
             using (var fs = f.Open(FileMode.OpenOrCreate))
             {
                 using (var sw = new StreamWriter(fs))
@@ -63,6 +94,7 @@ namespace Tsubaki.Configuration
                 }
             }
         }
+
 
         void IDisposable.Dispose()
         {

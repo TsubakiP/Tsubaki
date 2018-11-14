@@ -18,6 +18,6 @@ using System.Runtime.InteropServices;
 #else
 [assembly: AssemblyConfiguration("Release")]
 #endif
-[assembly: AssemblyVersion("1.0.80.6882")]
-[assembly: AssemblyInformationalVersion("2018.11.4.0752")]
-[assembly: AssemblyFileVersion("1.0.80.6882")]
+[assembly: AssemblyVersion("1.0.84.6888")]
+[assembly: AssemblyInformationalVersion("2018.11.10.0648")]
+[assembly: AssemblyFileVersion("1.0.84.6888")]

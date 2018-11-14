@@ -4,82 +4,57 @@
 
 namespace Tsubaki.Addons
 {
+    using System;
     using System.ComponentModel;
     using System.Reflection;
     using System.Runtime.InteropServices;
 
-    using Tsubaki.Addons.Interfaces;
-    using Tsubaki.Addons.Internal;
+    using Tsubaki.Addons.Contracts;
+
     using Tsubaki.Configuration;
 
     /// <summary>
-    /// Provides basic features for the add-on.
+    /// Provides basic features for the addon.
     /// </summary>
-    /// <seealso cref="IAddon"/>
+    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonContract" />
     [Guid("BD47D5EE-83D5-4017-B5F3-1E8549402470")]
-    public abstract class Addon : IAddon
+    public abstract class Addon : IAddonContract
     {
-        /// <summary>
-        /// Gets the domains.
-        /// </summary>
-        public string[] Domains { get; }
+
+        private readonly AddonAttribute _metadata;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="IAddon"/> is enabled.
+        /// Gets the definition.
         /// </summary>
-        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
-        public bool Enabled
-        {
-            get
-            {
-                return this._cfg.Enabled;
-            }
-            set
-            {
-                this._cfg.Enabled = value;
-                this._cfg.Save() ;
-            }
-        }
-
-        /// <summary>
-        /// Gets the name.
-        /// </summary>
-        public string Name { get; }
+        /// <value>
+        /// The definition.
+        /// </value>
+        IAddonDefinition IAddonContract.Definition => this._metadata;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Addon"/> class.
         /// </summary>
-        /// <exception cref="AddonInitializationException"/>
         protected Addon()
         {
-            var t = this.GetType();
-            if (t.GetCustomAttribute<AddonAttribute>() is IAddonMetadata metadata)
-            {
-                this.Name = metadata.Id ?? t.Name;
-                if (metadata.Domains is string[] keys && keys.Length > 0)
-                {
-                    this.Domains = metadata.Domains;
-                }
-                else
-                {
-                    throw new AddonInitializationException(t, "The domains is empty so this Addon will not be invoked");
-                }
-            }
-            else
-            {
-                throw new AddonInitializationException(t, $"The { nameof(AddonAttribute)} not depend on type {t.Name}, Add the attribute can improve this exception");
-            }
-
-            this._cfg = Config.Load();
-
+            this._metadata = this.GetType().GetCustomAttribute<AddonAttribute>();
             this.OnInitialize();
         }
 
-        private Config _cfg;
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="IAddonContract" /> is enabled.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public bool Enabled
+        {
+            get => this._metadata.Enabled;
+            set => this._metadata.Enabled = value;
+        }
 
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        bool? IAddon.Execute(string[] args, out object callback)
+        bool? IAddonContract.Execute(string[] args, out object callback)
         {
             callback = null;
             if (!this.Enabled)
@@ -103,13 +78,7 @@ namespace Tsubaki.Addons
         {
         }
 
-
-
-        private class Config : SelfDisciplined<Config>
-        {
-            public bool Enabled { get; set; }
-        }
     }
 
-    
+
 }
