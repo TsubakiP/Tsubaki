@@ -55,6 +55,7 @@
     <Compile Include="Internal\AddonNotFoundException.cs" />
     <Compile Include="Internal\Diff.cs" />
     <Compile Include="Internal\LazyContainer.cs" />
+    <Compile Include="NoAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

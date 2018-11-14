@@ -52,10 +52,9 @@
   <ItemGroup>
     <Compile Include="Addon.cs" />
     <Compile Include="AddonAttribute.cs" />
-    <Compile Include="Interfaces\IAddonActivation.cs" />
-    <Compile Include="Interfaces\IAddonContract.cs" />
-    <Compile Include="Interfaces\IAddonDefinition.cs" />
-    <Compile Include="Internal\AddonInitializationException.cs" />
+    <Compile Include="Contracts\IAddonActivation.cs" />
+    <Compile Include="Contracts\IAddonContract.cs" />
+    <Compile Include="Contracts\IAddonDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

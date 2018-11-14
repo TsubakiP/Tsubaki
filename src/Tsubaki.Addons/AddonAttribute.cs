@@ -9,8 +9,8 @@ namespace Tsubaki.Addons
     using System.Runtime.InteropServices;
 
     using Tsubaki.Configuration;
-    using Tsubaki.Addons.Interfaces;
-    using Tsubaki.Addons.Internal;
+    using Tsubaki.Addons.Contracts;
+
     using System.Collections.Generic;
     using System.Collections;
 
@@ -18,14 +18,13 @@ namespace Tsubaki.Addons
     /// Basic information about tagging addons
     /// </summary>
     /// <seealso cref="System.ComponentModel.Composition.ExportAttribute" />
-    /// <seealso cref="Tsubaki.Addons.Interfaces.IAddonDefinition" />
+    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonDefinition" />
     /// <seealso cref="ExportAttribute" />
     /// <seealso cref="IAddonDefinition" />
     [MetadataAttribute]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class AddonAttribute : ExportAttribute, IAddonDefinition, IAddonActivation
     {
-
         /// <summary>
         /// Gets the domains.
         /// </summary>
@@ -35,13 +34,11 @@ namespace Tsubaki.Addons
 
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets the name.
         /// </summary>
         /// <value>
         /// The name.
         /// </value>
-        /// <exception cref="DevelopmentException"></exception>
-        /// <exception cref="ArgumentException">null or empty - value</exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name { get; }
 
@@ -51,12 +48,9 @@ namespace Tsubaki.Addons
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="domains">The domains.</param>
-        /// <exception cref="ArgumentException">null or empty - name</exception>
         public AddonAttribute(string name, params string[] domains) : base(typeof(IAddonContract))
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("null or empty", nameof(name));
-            this.Name = name;
+            this.Name = string.IsNullOrWhiteSpace(name) ? this.GetType().GUID.ToString() : name;
 
             this.Domains = domains;
 
@@ -86,12 +80,13 @@ namespace Tsubaki.Addons
                 this._config.Save(this.Name);
             }
         }
-        private AddonConfig _config;
+        private　readonly　AddonConfig _config;
 
 
         private class AddonConfig : SelfDisciplined<AddonConfig>
         {
             public bool? Enabled { get; set; } 
         }
+        
     }
 }

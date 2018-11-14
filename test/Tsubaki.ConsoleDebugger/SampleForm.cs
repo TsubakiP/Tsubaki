@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tsubaki.Addons;
 using Tsubaki.Addons.Hosting;
 using Tsubaki.Messaging;
 using Tsubaki.Messaging.Endpoints;
@@ -27,20 +28,20 @@ namespace Tsubaki.ConsoleDebugger
             InitializeComponent();
 
 
-            var names = AddonProvider.Addons.GetAddonsNames();
+            var names = Tsubaki.Addons.Hosting.Addons.Names;
             foreach (var name in names)
             {
-                /*
-                var str = $"{name} ({(AddonProvider.Addons[name].Metadata.Enabled ? "disable" : "enable")})";
+                
+                var str = $"{name} ({(Addons.Hosting.Addons.Get(name).Enabled ? "disable" : "enable")})";
                 var btn = new ToolStripMenuItem(str);
                 btn.Click += (s, _) =>
                 {
-                    var status = !AddonProvider.Addons[name].Metadata.Enabled;
+                    var status = !Addons.Hosting.Addons.Get(name).Enabled;
                     btn.Text = $"{name} ({(status ? "disable" : "enable")})";
 //                    AddonProvider.Addons[name].Metadata.Enabled = status;
                 };
                 this.addonsToolStripMenuItem.DropDownItems.Add(btn);
-                */
+                
             }
 
 

@@ -11,8 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		secret.json = secret.json
-		secret.yml = secret.yml
+		df.yml = df.yml
+		gs.json = gs.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Addons", "src\Tsubaki.Addons\Tsubaki.Addons.csproj", "{1C2356A5-C4F7-47F3-8506-CF7EBC753193}"

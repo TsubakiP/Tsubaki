@@ -2,8 +2,9 @@
 // Contact: mailto:viyrex.aka.yuyu@gmail.com
 // Github: https://github.com/0x0001F36D
 
-namespace Tsubaki.Addons.Interfaces
+namespace Tsubaki.Addons.Contracts
 {
+    using System;
     using System.ComponentModel;
 
     /// <summary>
@@ -12,7 +13,6 @@ namespace Tsubaki.Addons.Interfaces
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IAddonDefinition
     {
-
         /// <summary>
         /// Gets the name.
         /// </summary>

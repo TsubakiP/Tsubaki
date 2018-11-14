@@ -4,22 +4,23 @@
 
 namespace Tsubaki.Addons
 {
+    using System;
     using System.ComponentModel;
     using System.Reflection;
     using System.Runtime.InteropServices;
 
-    using Tsubaki.Addons.Interfaces;
-    using Tsubaki.Addons.Internal;
+    using Tsubaki.Addons.Contracts;
+
     using Tsubaki.Configuration;
 
     /// <summary>
     /// Provides basic features for the addon.
     /// </summary>
-    /// <seealso cref="Tsubaki.Addons.Interfaces.IAddonContract" />
-    /// <seealso cref="IAddonContract" />
+    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonContract" />
     [Guid("BD47D5EE-83D5-4017-B5F3-1E8549402470")]
     public abstract class Addon : IAddonContract
     {
+
         private readonly AddonAttribute _metadata;
 
         /// <summary>

@@ -2,7 +2,7 @@
 // Contact: mailto:viyrex.aka.yuyu@gmail.com
 // Github: https://github.com/0x0001F36D
 
-namespace Tsubaki.Addons.Interfaces
+namespace Tsubaki.Addons.Contracts
 {
     using System.ComponentModel;
     using System.ComponentModel.Composition;

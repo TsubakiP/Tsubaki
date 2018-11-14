@@ -61,7 +61,7 @@ namespace Tsubaki.Messaging.Endpoints
                 Debug.WriteLine("Key: "+ item); 
             }
             Debug.WriteLine("");
-            var executed = AddonProvider.Addons.Execute(parameters.Keys.ToArray(), parameters.Values.ToArray(), out var callback);
+            var executed = Addons.Execute(parameters.Keys.ToArray(), parameters.Values.ToArray(), out var callback);
             if (executed == ExecutedResult.Success)
             {
                 var msg = callback as string;
@@ -100,5 +100,4 @@ namespace Tsubaki.Messaging.Endpoints
         
     }
 
-     
 }

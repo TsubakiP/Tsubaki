@@ -23,7 +23,7 @@ namespace Tsubaki.Messaging.Dialogflow
 
         public bool DevelopMode { get; }
 
-        private const string SECRET_YML = "secret.yml";
+        private const string SECRET_YML = "df.yml";
 
         [Route(SECRET_YML)]
         private class Config : SelfDisciplined<Config>
