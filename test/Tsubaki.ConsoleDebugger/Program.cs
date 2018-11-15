@@ -28,12 +28,12 @@ namespace Tsubaki.ConsoleDebugger
 
         }
 
-        [Addon("Fake", "fake")]
+        [Addon("Weather", "sys.date", "sys.date-period","weather")]
         public class Fake : Addon
         {
             protected override bool ExecuteImpl(string[] args, ref object callback)
             {
-                Console.WriteLine("FAKE!!!");
+                callback = string.Join(", ", args);
                 return true;
             }
         }

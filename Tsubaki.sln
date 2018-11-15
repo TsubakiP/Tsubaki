@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Addons.Hosting", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Configuration", "src\Tsubaki.Configuration\Tsubaki.Configuration.csproj", "{78C0C11C-089A-487E-AF6A-48766E2B384A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Speech.Net470", "src\Tsubaki.Speech\src\Tsubaki.Speech.Net470\Tsubaki.Speech.Net470.csproj", "{7AF6DEFA-5D1A-4581-96BD-8A45254D1F55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{78C0C11C-089A-487E-AF6A-48766E2B384A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78C0C11C-089A-487E-AF6A-48766E2B384A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78C0C11C-089A-487E-AF6A-48766E2B384A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF6DEFA-5D1A-4581-96BD-8A45254D1F55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF6DEFA-5D1A-4581-96BD-8A45254D1F55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF6DEFA-5D1A-4581-96BD-8A45254D1F55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF6DEFA-5D1A-4581-96BD-8A45254D1F55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
