@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>C:\Users\Yuyu\Desktop\Tsubaki\test\Tsubaki.Test.Console\bin\Debug\Addons\Mock\</OutputPath>
+    <OutputPath>C:\Users\user\Source\Repos\Tsubaki\test\Tsubaki.Test.Console\bin\Debug\Addons\Mock\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

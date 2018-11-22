@@ -16,6 +16,7 @@ namespace Tsubaki.Test.Console
     using Tsubaki.Configuration;
     using Tsubaki.Test.MockAddon;
     using System.Reflection;
+    using Tsubaki.Addons.Hosting.Extensions;
 
     partial class Program
     {
@@ -24,17 +25,21 @@ namespace Tsubaki.Test.Console
         {
             try
             {
-
-                if (Addons.Toggle[Mock.MOCK_ADDON])
+                var addon = Addons.Get(Mock.MOCK_ADDON);
+                var dec = addon.Control();
+                if (dec.IsEnabled) 
                 {
-                    Addons.Get(Mock.MOCK_ADDON).Execute(new string[0], out var s);
+                    Console.WriteLine("Enable");
+                    addon.Execute(new string[0], out var s);
                     Console.WriteLine(s);
-                    Addons.Toggle[Mock.MOCK_ADDON] = false;
+                    dec.Disable();
                 }
                 else
                 {
-                    Addons.Toggle[Mock.MOCK_ADDON] = true;
+                    Console.WriteLine("Disable");
+                    dec.Enable();
                 }
+                Console.WriteLine("---");
                 foreach (var item in Addons.Names)
                 {
                     Console.WriteLine(item);

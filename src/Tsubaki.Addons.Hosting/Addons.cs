@@ -24,8 +24,6 @@ namespace Tsubaki.Addons.Hosting
     {
         private sealed class AddonDefinition : IAddonDefinition
         {
-            private readonly string _path;
-
 
             [EditorBrowsable(EditorBrowsableState.Never)]
             public AddonDefinition(IDictionary<string, object> properties)

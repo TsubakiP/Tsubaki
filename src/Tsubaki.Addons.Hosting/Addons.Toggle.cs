@@ -4,8 +4,10 @@ namespace Tsubaki.Addons.Hosting
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Tsubaki.Addons.Contracts;
     using Tsubaki.Configuration;
     using Tsubaki.Configuration.Attributes;
+
 
     partial class Addons
     {
@@ -18,6 +20,7 @@ namespace Tsubaki.Addons.Hosting
             {
                 this.EnabledList = new Dictionary<string, bool>();
             }
+
             public Dictionary<string, bool> EnabledList { get; private set; }
 
             public bool this[string name]

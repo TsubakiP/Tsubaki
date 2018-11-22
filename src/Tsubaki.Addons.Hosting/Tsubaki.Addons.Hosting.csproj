@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Tsubaki.snk</AssemblyOriginatorKeyFile>
+    <Company>Tsubaki.Addons.Hosting</Company>
+    <Authors>TsubakiP</Authors>
   </PropertyGroup>
 
   <ItemGroup>
