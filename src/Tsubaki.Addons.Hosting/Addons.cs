@@ -182,11 +182,9 @@ namespace Tsubaki.Addons.Hosting
         /// <param name="args">The arguments.</param>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
-        public static ExecutedResult Execute(string[] domains, string[] args, out object callback)
+        public static ExecutedResult Execute(string[] domains, string[] args, IAddonInteractive interactive)
         {
             var r = default(ExecutedResult);
-            callback = null;
-
 
             lock (((ICollection)s_container).SyncRoot)
             {
@@ -202,7 +200,7 @@ namespace Tsubaki.Addons.Hosting
                             var diff = Diff.Compare(m.Metadata.Domains, domains);
                             if (diff != 0.0 && Toggle[m.Metadata.Name])
                             {
-                                var result = m.CreateExport().Value.Execute(args, out callback);
+                                var result = m.CreateExport().Value.Execute(args, interactive);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             else
@@ -229,7 +227,7 @@ namespace Tsubaki.Addons.Hosting
                             else if(Toggle[a.Metadata.Name])
                             {
                                 //Found the highest similar object
-                                var result = a.CreateExport().Value.Execute(args, out callback);
+                                var result = a.CreateExport().Value.Execute(args, interactive);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             break;

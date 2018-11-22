@@ -20,9 +20,8 @@ namespace Tsubaki.Addons.Hosting
         }
         internal static NoAction Singleton { get; }
 
-        public bool? Execute(string[] args, out object callback)
+        public bool? Execute(string[] args, IAddonInteractive interactive)
         {
-            callback = null;
             return false;
         }
 

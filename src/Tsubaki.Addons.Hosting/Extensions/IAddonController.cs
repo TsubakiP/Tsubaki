@@ -1,4 +1,4 @@
-﻿namespace Tsubaki.Addons.Hosting
+﻿namespace Tsubaki.Addons.Hosting.Extensions
 {
     public interface IAddonController
     {

@@ -27,11 +27,9 @@ namespace Tsubaki.Addons
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        bool? IAddonContract.Execute(string[] args, out object callback)
+        bool? IAddonContract.Execute(string[] args, IAddonInteractive interactive)
         {
-            callback = null;
-
-            return this.ExecuteImpl(args, ref callback);
+            return this.ExecuteImpl(args, interactive);
         }
 
         /// <summary>
@@ -40,7 +38,7 @@ namespace Tsubaki.Addons
         /// <param name="args">The arguments.</param>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
-        protected abstract bool ExecuteImpl(string[] args, ref object callback);
+        protected abstract bool ExecuteImpl(string[] args, IAddonInteractive interactive);
 
         /// <summary>
         /// Called when object initialize.

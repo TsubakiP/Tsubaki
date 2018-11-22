@@ -5,7 +5,7 @@ namespace Tsubaki.Addons.Contracts
     
     public interface IAddonContract
     {
-        bool? Execute(string[] args, out object callback);
+        bool? Execute(string[] args, IAddonInteractive interactive);
     }
 
 }

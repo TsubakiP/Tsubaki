@@ -2,6 +2,7 @@
 namespace Tsubaki.Addons.Hosting.Extensions
 {
     using Tsubaki.Addons.Contracts;
+    using Tsubaki.Addons.Hosting.Extensions.Internal;
 
     public static class AddonExtensions
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Tsubaki.Addons.Hosting
+namespace Tsubaki.Addons.Hosting.Extensions.Internal
 {
     using System.Reflection;
     using Tsubaki.Addons.Contracts;

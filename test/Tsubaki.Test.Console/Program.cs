@@ -20,18 +20,28 @@ namespace Tsubaki.Test.Console
 
     partial class Program
     {
+        public class Interactive : IAddonInteractive
+        {
+            public void Text(string message)
+            {
+                Console.WriteLine(message);
+            }
+
+        }
+
 
         static void main()
         {
             try
             {
+                var ia = new Interactive();
+                
                 var addon = Addons.Get(Mock.MOCK_ADDON);
                 var dec = addon.Control();
                 if (dec.IsEnabled) 
                 {
                     Console.WriteLine("Enable");
-                    addon.Execute(new string[0], out var s);
-                    Console.WriteLine(s);
+                    addon.Execute(new string[0], ia);
                     dec.Disable();
                 }
                 else
