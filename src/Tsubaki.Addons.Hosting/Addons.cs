@@ -1,43 +1,117 @@
-﻿// Author: Viyrex(aka Yuyu)
-// Contact: mailto:viyrex.aka.yuyu@gmail.com
-// Github: https://github.com/0x0001F36D
-
+﻿
 namespace Tsubaki.Addons.Hosting
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition.Hosting;
+    using System.Composition.Hosting;
     using System.Diagnostics;
     using System.Linq;
     using Tsubaki.Addons.Hosting.Internal;
     using Tsubaki.Addons.Contracts;
     using System.Collections;
-
+    using System.Composition;
+    using System.Composition.Convention;
+    using System.IO;
+    using System.Reflection;
+    using Tsubaki.Configuration;
+    using System.ComponentModel;
+    using Tsubaki.Configuration.Attributes;
+   
     /// <summary>
     /// The addons container.
     /// </summary>
-    public static class Addons
+    public  static partial class Addons
     {
+        private sealed class AddonDefinition : IAddonDefinition
+        {
+            private readonly string _path;
+
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public AddonDefinition(IDictionary<string, object> properties)
+            {
+                this.Name = properties[nameof(this.Name)] as string;
+                this.Domains = properties[nameof(this.Domains)] as string[];
+            }
+            public string Name { get; }
+            public string[] Domains { get; }
+        }
+        
+
 
         private const string PATH = "./" + nameof(Addons);
-        private static volatile List<Lazy<IAddonContract, IAddonDefinition>> s_container;
+
+        private readonly static List<ExportFactory<IAddonContract, AddonDefinition>> s_container;
+
+
+
         static Addons()
         {
-            var aggregate = new AggregateCatalog();
-            AddonUtils.AddAssemblies(aggregate);
-            AddonUtils.AddDirectories(aggregate, PATH);
+            var convention = new ConventionBuilder();
+            convention.ForTypesDerivedFrom<Addon>().Export<IAddonContract>();
 
-            s_container = new LazyContainer<IAddonContract, IAddonDefinition>(aggregate).ToList();
+            var container = new ContainerConfiguration();
+            var assemblies = new HashSet<Assembly>();
 
 #if DEBUG
-            Debug.WriteLine("Loading addons...");
-            foreach (var item in s_container)
+            var inModules = AppDomain.CurrentDomain.GetAssemblies();            
+            foreach (var a in inModules)
             {
-                var s = string.IsNullOrWhiteSpace(item.Metadata.Name) ? "<unnamed addon>" : item.Metadata.Name;
-                Debug.WriteLine(s);
+                assemblies.Add(a);
             }
-            Debug.WriteLine("Loaded all addons");
 #endif
+
+
+            var dir = new DirectoryInfo(PATH);
+            if (!dir.Exists)
+            {
+                dir.Create();
+            }
+            else
+            {
+                var directories = dir.GetDirectories("*", SearchOption.AllDirectories);
+                foreach (var folder in directories)
+                {
+                    var dlls = folder.GetFiles("*.dll");
+                    foreach (var dll in dlls)
+                    {
+                        try
+                        {
+                            var assembly = Assembly.LoadFile(dll.FullName);
+                            assemblies.Add(assembly);
+                        }
+                        catch
+                        {
+                        }
+
+                    }
+
+                }
+
+            }
+#if DEBUG
+            foreach (var a in assemblies)
+            {
+                Debug.WriteLine($"Assembly: {a}");
+                assemblies.Add(a);
+            }
+#endif
+
+            try
+            {
+                container.WithAssemblies(assemblies, convention);
+                var host =  container.CreateContainer();
+
+                s_container =  host.GetExports<ExportFactory<IAddonContract, AddonDefinition>>().ToList();
+                                
+            }
+            catch (TypeLoadException e)
+            {
+                Debug.WriteLine(e.Message);
+                throw;
+            }
+                    
+            
         }
 
         public static IReadOnlyList<string> Names
@@ -51,6 +125,23 @@ namespace Tsubaki.Addons.Hosting
                 }
             }
         }
+
+        /*
+        public static IAddonActivation GetActivation(string name)
+        {
+            lock (((ICollection)s_container).SyncRoot)
+            {
+                foreach (var export in s_container)
+                {
+                    if (string.Equals(export.Metadata.Name, name, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return export.Metadata;
+                    }
+                }
+            }
+            return NoAction.Singleton;
+        }*/
+
 
         /// <summary>
         /// Gets the specified <see cref="IAddonContract" />.
@@ -71,9 +162,10 @@ namespace Tsubaki.Addons.Hosting
                 {
                     if (string.Equals(lz.Metadata.Name, name, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        if (force || (lz.Metadata is IAddonActivation activation && activation.Enabled))
+                        if (force || Toggle[lz.Metadata.Name])
+                        //    if (force || (lz.Metadata is IAddonActivation activation && activation.Enabled))
                         {
-                            return lz.Value;
+                            return lz.CreateExport().Value;
                         }
 
                     }
@@ -110,9 +202,9 @@ namespace Tsubaki.Addons.Hosting
                         {
                             var m = s_container[0];
                             var diff = Diff.Compare(m.Metadata.Domains, domains);
-                            if (diff != 0.0)
+                            if (diff != 0.0 && Toggle[m.Metadata.Name])
                             {
-                                var result = m.Value.Execute(args, out callback);
+                                var result = m.CreateExport().Value.Execute(args, out callback);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             else
@@ -123,12 +215,12 @@ namespace Tsubaki.Addons.Hosting
                     default:
                         {
                             var top_v = 0.0;
-                            var a = default(Lazy<IAddonContract, IAddonDefinition>);
+                            var a = default(ExportFactory<IAddonContract, AddonDefinition>);
                             foreach (var m in s_container)
                             {
                                 var diff = Diff.Compare(m.Metadata.Domains, domains);
                                 // Debug.WriteLine("N: " + m.Metadata.Name + " | " + diff);
-                                if (diff >= top_v)
+                                if (diff >= top_v && Toggle[m.Metadata.Name])
                                 {
                                     top_v = diff;
                                     a = m;
@@ -136,10 +228,10 @@ namespace Tsubaki.Addons.Hosting
                             }
                             if (top_v == 0.0)
                                 r = ExecutedResult.NoMatched;
-                            else
+                            else if(Toggle[a.Metadata.Name])
                             {
                                 //Found the highest similar object
-                                var result = a.Value.Execute(args, out callback);
+                                var result = a.CreateExport().Value.Execute(args, out callback);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             break;
@@ -150,5 +242,6 @@ namespace Tsubaki.Addons.Hosting
         }
     }
 
-    
+
+
 }

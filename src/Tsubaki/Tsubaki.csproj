@@ -43,8 +43,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ApiAi.Signed, Version=1.1.5.6885, Culture=neutral, PublicKeyToken=dfaea0e7d4ecc0bb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dll\ApiAi.Signed.dll</HintPath>
+      <Aliases>df</Aliases>
     </Reference>
     <Reference Include="Microsoft.Win32.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Win32.Primitives.4.0.1\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>

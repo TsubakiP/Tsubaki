@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Users\Yuyu\Desktop\Tsubaki\test\Tsubaki.Test.Console\bin\Debug\Addons\Mock\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Tsubaki.Addons\Tsubaki.Addons.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -4,6 +4,7 @@
 
 namespace Tsubaki.Addons.Hosting
 {
+    using System;
     using Tsubaki.Addons.Contracts;
 
     /// <summary>
@@ -19,26 +20,6 @@ namespace Tsubaki.Addons.Hosting
         }
         internal static NoAction Singleton { get; }
 
-        private class NoActionDefinition : IAddonDefinition
-        {
-            public string Name { get; }
-
-            public string[] Domains { get; }
-
-            internal NoActionDefinition()
-            {
-                this.Name = "NoAction";
-                this.Domains = new string[0];
-            }
-        }
-
-        private NoAction()
-        {
-            this.Definition = new NoActionDefinition();
-        }
-
-        public IAddonDefinition Definition { get; }
-
         public bool? Execute(string[] args, out object callback)
         {
             callback = null;
@@ -46,6 +27,12 @@ namespace Tsubaki.Addons.Hosting
         }
 
         public bool Enabled { get => false; set { } }
+        
+
+        public string[] Domains => Array.Empty<string>();
+
+        public string Name => nameof(NoAction);
+
 
 #pragma warning restore CS1591
     }

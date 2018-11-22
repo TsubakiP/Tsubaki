@@ -1,23 +1,20 @@
-﻿
-namespace Tsubaki.Messaging.Dialogflow
+﻿/*
+namespace Tsugumi.Messaging.Dialogflow
 {
-    extern alias df;
-
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
 
-    using Tsubaki.Configuration;
+    using Tsugumi.Configuration;
 
-
-    using Tsubaki.Configuration.Attributes;
-    using Tsubaki.Exceptions;
+    using ApiAi;
+    using Tsugumi.Configuration.Attributes;
+    using ApiAi.Models;
     using System.Threading;
     using System.Diagnostics;
-    using df::ApiAi.Models;
-    using df::ApiAi;
+
+    using Dialogflow = Google.Apis.Dialogflow.v2;
+
 
     public class Agent
     {
@@ -28,7 +25,7 @@ namespace Tsubaki.Messaging.Dialogflow
         private const string SECRET_YML = "df.yml";
 
         [Route(SECRET_YML)]
-        private class Config : SelfDisciplined<Config>
+        private class Config : SelfKeeper<Config>
         {
             public string Client { get; private set; }
             public string Developer { get; private set; }
@@ -36,6 +33,7 @@ namespace Tsubaki.Messaging.Dialogflow
 
         public Agent(bool developMode = false)
         {
+            var df = new Dialogflow.DialogflowService();
             var clientSecret = Config.Load();
             if (developMode && !string.IsNullOrWhiteSpace(clientSecret.Developer))
             {
@@ -58,7 +56,7 @@ namespace Tsubaki.Messaging.Dialogflow
             this.DevelopMode = developMode;
         }
 
-        public async Task<QueryResponseModel> QueryAsync(MessageBody message, CancellationToken token = default)
+        public async Task<QueryResponseModel> QueryAsync(MessageBody message, CancellationToken token = default(CancellationToken))
         {
             try
             {
@@ -68,7 +66,7 @@ namespace Tsubaki.Messaging.Dialogflow
             {
 
             }
-            return default;
+            return default(QueryResponseModel);
         }
 
         public IEnumerable<EntityResponseModel> GetEntities()
@@ -76,7 +74,7 @@ namespace Tsubaki.Messaging.Dialogflow
             return EntityService.GetEntities(this._config);
         }
 
-        public async Task<IEnumerable<EntityResponseModel>> GetEntitiesAsync(CancellationToken token = default)
+        public async Task<IEnumerable<EntityResponseModel>> GetEntitiesAsync(CancellationToken token = default(CancellationToken))
         {
             try
             {
@@ -89,7 +87,8 @@ namespace Tsubaki.Messaging.Dialogflow
                     Debug.WriteLine(item.Message);
                 }
             }
-            return default;
+            return default(IEnumerable<EntityResponseModel>);
         }
     }
 }
+*/
