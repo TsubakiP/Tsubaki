@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Configurations", "src\Tsubaki.Configurations\Tsubaki.Configurations.csproj", "{36BDDB98-5353-4E20-9D73-CDFAB37A7C38}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Addons", "src\Tsubaki.Addons\Tsubaki.Addons.csproj", "{05500049-957E-4ED4-BA5A-D97A029767F1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Addons.Hosting", "src\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj", "{9FD09941-CB4C-45E2-AE8A-4EDF1D6436A8}"
@@ -15,16 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Test.Console", "tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Test.MockAddon", "test\Tsubaki.Test.MockAddon\Tsubaki.Test.MockAddon.csproj", "{7D1FDB97-1C0C-456B-B8FA-82289725DC31}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Configuration", "src\Tsubaki.Configuration\Tsubaki.Configuration.csproj", "{2709AD36-CF58-4B0E-BB14-0B7850B3B222}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{36BDDB98-5353-4E20-9D73-CDFAB37A7C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36BDDB98-5353-4E20-9D73-CDFAB37A7C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36BDDB98-5353-4E20-9D73-CDFAB37A7C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36BDDB98-5353-4E20-9D73-CDFAB37A7C38}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05500049-957E-4ED4-BA5A-D97A029767F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{05500049-957E-4ED4-BA5A-D97A029767F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05500049-957E-4ED4-BA5A-D97A029767F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{7D1FDB97-1C0C-456B-B8FA-82289725DC31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D1FDB97-1C0C-456B-B8FA-82289725DC31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D1FDB97-1C0C-456B-B8FA-82289725DC31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2709AD36-CF58-4B0E-BB14-0B7850B3B222}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2709AD36-CF58-4B0E-BB14-0B7850B3B222}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2709AD36-CF58-4B0E-BB14-0B7850B3B222}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2709AD36-CF58-4B0E-BB14-0B7850B3B222}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

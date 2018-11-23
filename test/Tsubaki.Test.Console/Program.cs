@@ -32,8 +32,7 @@ namespace Tsubaki.Test.Console
 
         static void main()
         {
-            try
-            {
+            // try            {
                 var ia = new Interactive();
                 
                 var addon = Addons.Get(Mock.MOCK_ADDON);
@@ -54,12 +53,13 @@ namespace Tsubaki.Test.Console
                 {
                     Console.WriteLine(item);
                 }
+                /*
             }
             catch (TypeInitializationException e) when (e.InnerException is ReflectionTypeLoadException te)
             {
                 var le = te.LoaderExceptions[0];
                 Console.WriteLine(le.Message);
-            }
+            }*/
         }
     }
 

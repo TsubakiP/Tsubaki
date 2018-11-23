@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj" />
-    <ProjectReference Include="..\Tsubaki.Configurations\Tsubaki.Configurations.csproj" />
+    <ProjectReference Include="..\Tsubaki.Configuration\Tsubaki.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

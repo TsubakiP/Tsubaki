@@ -5,14 +5,6 @@ namespace Tsubaki.Test.Console
 
     partial class Program
     {
-        static Program()
-        {
-            Console.WriteLine("Start");
-        }
-        ~Program()
-        {
-            Console.WriteLine("End");
-        }
         static void Main(string[] args)
         {
             main();

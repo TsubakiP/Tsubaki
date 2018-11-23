@@ -78,9 +78,9 @@
       <Project>{05500049-957e-4ed4-ba5a-d97a029767f1}</Project>
       <Name>Tsubaki.Addons</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Tsubaki.Configurations\Tsubaki.Configurations.csproj">
-      <Project>{36bddb98-5353-4e20-9d73-cdfab37a7c38}</Project>
-      <Name>Tsubaki.Configurations</Name>
+    <ProjectReference Include="..\..\src\Tsubaki.Configuration\Tsubaki.Configuration.csproj">
+      <Project>{2709ad36-cf58-4b0e-bb14-0b7850b3b222}</Project>
+      <Name>Tsubaki.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Tsubaki.Messaging\Tsubaki.Messaging.csproj">
       <Project>{d1b3e7b0-ba59-47e6-bdd7-7dea6bc293ed}</Project>

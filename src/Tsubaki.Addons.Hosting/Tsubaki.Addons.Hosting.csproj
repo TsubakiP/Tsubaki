@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tsubaki.Addons\Tsubaki.Addons.csproj" />
-    <ProjectReference Include="..\Tsubaki.Configurations\Tsubaki.Configurations.csproj" />
+    <ProjectReference Include="..\Tsubaki.Configuration\Tsubaki.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

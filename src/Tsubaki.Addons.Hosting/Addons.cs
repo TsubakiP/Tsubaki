@@ -103,10 +103,12 @@ namespace Tsubaki.Addons.Hosting
                 s_container =  host.GetExports<ExportFactory<IAddonContract, AddonDefinition>>().ToList();
                                 
             }
-            catch (TypeLoadException e)
+            catch (ReflectionTypeLoadException e)
             {
-                Debug.WriteLine(e.Message);
-                throw;
+                foreach (var le in e.LoaderExceptions)
+                {
+                    Debug.WriteLine(le.Message);
+                }
             }
                     
             
