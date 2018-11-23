@@ -1,22 +1,24 @@
-﻿
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+
 namespace Tsubaki.Messaging.EndPoints
 {
     using System;
 
     public abstract class MessengerBase : IMessenger
     {
-        protected virtual void OnReceived(object sender, ReceivedMessageEventArgs e)
+        event EventHandler<SentMessageEventArgs> IMessenger.Send
         {
+            add => this._send += value;
+            remove => this._send -= value;
         }
 
-        void IMessenger.OnReceived(object sender, ReceivedMessageEventArgs e)
-        {
-            this.OnReceived(sender, e);
-        }
+        private event EventHandler<SentMessageEventArgs> _send;
 
         public virtual void Send(MessageBody message)
         {
-            if( this._send is EventHandler<SentMessageEventArgs> @event)
+            if (this._send is EventHandler<SentMessageEventArgs> @event)
                 @event.Invoke(this, new SentMessageEventArgs(message));
             else
             {
@@ -24,11 +26,13 @@ namespace Tsubaki.Messaging.EndPoints
             }
         }
 
-        private event EventHandler<SentMessageEventArgs> _send;
-        event EventHandler<SentMessageEventArgs> IMessenger.Send
+        void IMessenger.OnReceived(object sender, ReceivedMessageEventArgs e)
         {
-            add => this._send += value;
-            remove => this._send -= value;
+            this.OnReceived(sender, e);
+        }
+
+        protected virtual void OnReceived(object sender, ReceivedMessageEventArgs e)
+        {
         }
     }
 }

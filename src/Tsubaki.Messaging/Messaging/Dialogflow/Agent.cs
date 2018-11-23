@@ -1,4 +1,7 @@
-﻿/*
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+/*
 namespace Tsugumi.Messaging.Dialogflow
 {
     using System;
@@ -14,7 +17,6 @@ namespace Tsugumi.Messaging.Dialogflow
     using System.Diagnostics;
 
     using Dialogflow = Google.Apis.Dialogflow.v2;
-
 
     public class Agent
     {
@@ -64,7 +66,6 @@ namespace Tsugumi.Messaging.Dialogflow
             }
             catch (AggregateException)
             {
-
             }
             return default(QueryResponseModel);
         }

@@ -1,26 +1,20 @@
-﻿
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+
 namespace Tsubaki.Addons.Hosting
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
-    using Tsubaki.Addons.Contracts;
+
     using Tsubaki.Configuration;
     using Tsubaki.Configuration.Attributes;
 
-
     partial class Addons
     {
-
         [Route(PATH + "/Activations")]
         private sealed class AddonActivation : SelfKeeper<AddonActivation>, IAddonActivation
         {
             private const bool ENABLED_DEFAULT = true;
-            public AddonActivation()
-            {
-                this.EnabledList = new Dictionary<string, bool>();
-            }
-
             public Dictionary<string, bool> EnabledList { get; private set; }
 
             public bool this[string name]
@@ -42,10 +36,13 @@ namespace Tsubaki.Addons.Hosting
                     this.Save();
                 }
             }
+
+            public AddonActivation()
+            {
+                this.EnabledList = new Dictionary<string, bool>();
+            }
         }
 
         public static readonly IAddonActivation Toggle = AddonActivation.Load();
-
     }
-
 }

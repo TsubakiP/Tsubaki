@@ -20,6 +20,8 @@ namespace Tsubaki.Configuration
 
         private static ISerializer s_serializer;
 
+        private readonly string _filename;
+
         public static ISerializer Serializer
         {
             get => s_serializer ?? s_default;
@@ -28,7 +30,6 @@ namespace Tsubaki.Configuration
 
         protected SelfKeeper()
         {
-
         }
 
         private SelfKeeper(string filename)
@@ -36,14 +37,13 @@ namespace Tsubaki.Configuration
             this._filename = filename;
         }
 
-        private readonly string _filename;
-
         public static T Load(bool createWithoutThrown = true)
         {
             var type = typeof(T);
             var file = type.GetCustomAttribute<RouteAttribute>() is RouteAttribute cf ? cf.File ?? type.Name : type.Name;
             return Load(file, createWithoutThrown);
         }
+
         public static T Load(string filename, bool createWithoutThrown = true)
         {
             if (string.IsNullOrWhiteSpace(filename))
@@ -74,6 +74,12 @@ namespace Tsubaki.Configuration
             return result;
         }
 
+        void IDisposable.Dispose()
+        {
+            this.Dispose();
+            this.Save();
+        }
+
         public bool Save()
         {
             var type = this.GetType();
@@ -93,13 +99,6 @@ namespace Tsubaki.Configuration
                     return Serializer.TrySerialize(sw, this);
                 }
             }
-        }
-
-
-        void IDisposable.Dispose()
-        {
-            this.Dispose();
-            this.Save();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

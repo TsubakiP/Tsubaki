@@ -1,47 +1,45 @@
-﻿
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+
 namespace Tsubaki.Addons.Hosting
 {
     using System;
-    using System.Collections.Generic;
-    using System.Composition.Hosting;
-    using System.Diagnostics;
-    using System.Linq;
-    using Tsubaki.Addons.Hosting.Internal;
-    using Tsubaki.Addons.Contracts;
     using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Composition;
     using System.Composition.Convention;
+    using System.Composition.Hosting;
+    using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
-    using Tsubaki.Configuration;
-    using System.ComponentModel;
-    using Tsubaki.Configuration.Attributes;
-   
+
+    using Tsubaki.Addons.Contracts;
+    using Tsubaki.Addons.Hosting.Internal;
+
     /// <summary>
     /// The addons container.
     /// </summary>
-    public  static partial class Addons
+    public static partial class Addons
     {
         private sealed class AddonDefinition : IAddonDefinition
         {
-
             [EditorBrowsable(EditorBrowsableState.Never)]
             public AddonDefinition(IDictionary<string, object> properties)
             {
                 this.Name = properties[nameof(this.Name)] as string;
                 this.Domains = properties[nameof(this.Domains)] as string[];
             }
+
             public string Name { get; }
             public string[] Domains { get; }
         }
-        
-
 
         private const string PATH = "./" + nameof(Addons);
 
         private readonly static List<ExportFactory<IAddonContract, AddonDefinition>> s_container;
-
-
 
         static Addons()
         {
@@ -52,13 +50,12 @@ namespace Tsubaki.Addons.Hosting
             var assemblies = new HashSet<Assembly>();
 
 #if DEBUG
-            var inModules = AppDomain.CurrentDomain.GetAssemblies();            
+            var inModules = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var a in inModules)
             {
                 assemblies.Add(a);
             }
 #endif
-
 
             var dir = new DirectoryInfo(PATH);
             if (!dir.Exists)
@@ -81,11 +78,8 @@ namespace Tsubaki.Addons.Hosting
                         catch
                         {
                         }
-
                     }
-
                 }
-
             }
 #if DEBUG
             foreach (var a in assemblies)
@@ -98,10 +92,9 @@ namespace Tsubaki.Addons.Hosting
             try
             {
                 container.WithAssemblies(assemblies, convention);
-                var host =  container.CreateContainer();
+                var host = container.CreateContainer();
 
-                s_container =  host.GetExports<ExportFactory<IAddonContract, AddonDefinition>>().ToList();
-                                
+                s_container = host.GetExports<ExportFactory<IAddonContract, AddonDefinition>>().ToList();
             }
             catch (ReflectionTypeLoadException e)
             {
@@ -110,8 +103,6 @@ namespace Tsubaki.Addons.Hosting
                     Debug.WriteLine(le.Message);
                 }
             }
-                    
-            
         }
 
         public static IReadOnlyList<string> Names
@@ -142,9 +133,8 @@ namespace Tsubaki.Addons.Hosting
             return NoAction.Singleton;
         }*/
 
-
         /// <summary>
-        /// Gets the specified <see cref="IAddonContract" />.
+        /// Gets the specified <see cref="IAddonContract"/>.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="force">if set to <c>true</c> [force].</param>
@@ -163,11 +153,10 @@ namespace Tsubaki.Addons.Hosting
                     if (string.Equals(lz.Metadata.Name, name, StringComparison.CurrentCultureIgnoreCase))
                     {
                         if (force || Toggle[lz.Metadata.Name])
-                        //    if (force || (lz.Metadata is IAddonActivation activation && activation.Enabled))
+                        // if (force || (lz.Metadata is IAddonActivation activation && activation.Enabled))
                         {
                             return lz.CreateExport().Value;
                         }
-
                     }
                 }
             }
@@ -175,7 +164,6 @@ namespace Tsubaki.Addons.Hosting
             Failure:
             return NoAction.Singleton;
         }
-
 
         /// <summary>
         /// Executes the specified domains.
@@ -226,7 +214,7 @@ namespace Tsubaki.Addons.Hosting
                             }
                             if (top_v == 0.0)
                                 r = ExecutedResult.NoMatched;
-                            else if(Toggle[a.Metadata.Name])
+                            else if (Toggle[a.Metadata.Name])
                             {
                                 //Found the highest similar object
                                 var result = a.CreateExport().Value.Execute(args, interactive);
@@ -239,7 +227,4 @@ namespace Tsubaki.Addons.Hosting
             return r;
         }
     }
-
-
-
 }

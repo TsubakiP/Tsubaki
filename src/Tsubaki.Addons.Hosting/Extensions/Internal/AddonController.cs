@@ -1,12 +1,33 @@
-﻿
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+
 namespace Tsubaki.Addons.Hosting.Extensions.Internal
 {
     using System.Reflection;
+
     using Tsubaki.Addons.Contracts;
 
     internal sealed class AddonController : IAddonController
     {
+        private readonly string _name;
         private bool _stateCache;
+        bool IAddonController.IsEnabled => this.Enabled;
+
+        internal bool Enabled
+        {
+            get => this._stateCache;
+
+            private set
+            {
+                if (this._stateCache != value)
+                {
+                    this._stateCache = value;
+                    Addons.Toggle[this._name] = value;
+                }
+            }
+        }
+
         internal AddonController(IAddonContract addon)
         {
             var attr = addon.GetType().GetCustomAttribute<AddonAttribute>();
@@ -16,22 +37,10 @@ namespace Tsubaki.Addons.Hosting.Extensions.Internal
                 this.Enabled = Addons.Toggle[this._name];
             }
         }
-        private readonly string _name;
 
-        bool IAddonController.IsEnabled => this.Enabled;
-
-        internal bool Enabled
+        void IAddonController.Disable()
         {
-            get => this._stateCache;
-            
-            private set
-            {
-                if(this._stateCache != value)
-                {
-                    this._stateCache = value;
-                    Addons.Toggle[this._name] = value;
-                }
-            }
+            this.Enabled = false;
         }
 
         void IAddonController.Enable()
@@ -39,15 +48,9 @@ namespace Tsubaki.Addons.Hosting.Extensions.Internal
             this.Enabled = true;
         }
 
-        void IAddonController.Disable()
-        {
-            this.Enabled = false;
-        }
-
         void IAddonController.Toggle()
         {
             this.Enabled = !this.Enabled;
         }
     }
-
 }

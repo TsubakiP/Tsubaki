@@ -1,11 +1,11 @@
-﻿
+﻿// Author: Viyrex(aka Yuyu)
+// Contact: mailto:viyrex.aka.yuyu@gmail.com
+// Github: https://github.com/0x0001F36D
+
 namespace Tsubaki.Addons.Contracts
 {
-    using System.Composition;
-    
     public interface IAddonContract
     {
         bool? Execute(string[] args, IAddonInteractive interactive);
     }
-
 }

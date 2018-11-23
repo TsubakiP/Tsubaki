@@ -6,10 +6,18 @@
     <AssemblyOriginatorKeyFile>Tsubaki.snk</AssemblyOriginatorKeyFile>
     <Authors>TsubakiP</Authors>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Composition" Version="1.2.0" />
+    <Compile Remove="Properties\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <None Remove="Properties\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Composition.AttributedModel" Version="1.2.0" />
   </ItemGroup>
 
 </Project>

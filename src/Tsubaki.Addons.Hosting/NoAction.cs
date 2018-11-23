@@ -5,19 +5,22 @@
 namespace Tsubaki.Addons.Hosting
 {
     using System;
+
     using Tsubaki.Addons.Contracts;
 
     /// <summary>
     /// No action addon, When provider can't find the addon will return this instance back.
     /// </summary>
-    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonContract" />
+    /// <seealso cref="Tsubaki.Addons.Contracts.IAddonContract"/>
     public sealed class NoAction : IAddonContract
     {
 #pragma warning disable CS1591
+
         static NoAction()
         {
             Singleton = new NoAction();
         }
+
         internal static NoAction Singleton { get; }
 
         public bool? Execute(string[] args, IAddonInteractive interactive)
@@ -26,12 +29,10 @@ namespace Tsubaki.Addons.Hosting
         }
 
         public bool Enabled { get => false; set { } }
-        
 
         public string[] Domains => Array.Empty<string>();
 
         public string Name => nameof(NoAction);
-
 
 #pragma warning restore CS1591
     }
