@@ -10,6 +10,8 @@ namespace Tsubaki.Test.Console
     using Tsubaki.Addons.Hosting;
     using Tsubaki.Addons.Hosting.Extensions;
     using Tsubaki.Test.MockAddon;
+    using WebSocketSharp;
+    using WebSocketSharp.Server;
 
     partial class Program
     {
@@ -21,13 +23,61 @@ namespace Tsubaki.Test.Console
             }
         }
 
+        public class Wss
+        {
+            private class Callback : WebSocketBehavior
+            {
+                protected override void OnMessage(MessageEventArgs e)
+                {
+                    Console.WriteLine("Server received: " + e.Data);
+                    this.Send(e.Data);
+                }
+            }
+            
+
+
+            private readonly WebSocketServer _server;
+
+            public Wss(int port)
+            {
+                this._server = new WebSocketServer(port);
+                this._server.AddWebSocketService<Callback>("/");
+                this._server.Start();
+                
+            }           
+        }
+
+        public class Wsc : IAddonInteractive
+        {
+            private readonly WebSocket _client;
+            public Wsc(int port)
+            {
+                this._client = new WebSocket($"ws://localhost:{port}");
+                this._client.Connect();
+            }
+
+            public void Text(string message)
+            {
+                this._client.Send(message);
+            }
+        }
+
+
         private static void main()
         {
+
+
+
+
+
+            var wss = new Wss(8888);
+
             // try {
-            var ia = new Interactive();
+            var ia = new Wsc(8888);
 
             var addon = Addons.Get(Mock.MOCK_ADDON);
             var dec = addon.Control();
+            
             if (dec.IsEnabled)
             {
                 Console.WriteLine("Enable");
@@ -39,11 +89,15 @@ namespace Tsubaki.Test.Console
                 Console.WriteLine("Disable");
                 dec.Enable();
             }
+
+            /*
             Console.WriteLine("---");
             foreach (var item in Addons.Names)
             {
                 Console.WriteLine(item);
             }
+            */
+
             /*
         }
         catch (TypeInitializationException e) when (e.InnerException is ReflectionTypeLoadException te)
