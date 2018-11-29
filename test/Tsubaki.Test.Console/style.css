@@ -1,0 +1,9 @@
+﻿
+#logger {
+    display: block;
+    background-color: #464646;
+    color: #ffffff;
+    width: 220px;
+    height: 150px;
+    overflow-y: auto;
+}

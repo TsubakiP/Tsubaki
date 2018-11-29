@@ -111,39 +111,18 @@ namespace Tsubaki.Test.Console
             }
 #endif
             private readonly WebSocketServer _wss;
-            private readonly WebSocket _ws;
             public WsLocalhost(ushort userInterfacePort = 8888)
             {
                 this._wss = new WebSocketServer(userInterfacePort);
                 this._wss.AddWebSocketService<Broadcast>("/");
                 this._wss.Start();
 
-                this._ws = this.CreateClient(this.OnSend);
-            }
-            private WebSocket CreateClient(EventHandler<MessageEventArgs> onMessage)
-            {
-                var ws = new WebSocket($"ws://localhost:{this._wss.Port}");
-                ws.OnMessage += onMessage;
-                ws.Connect();
-                return ws;
-            }
-
-
-            private void OnSend(object sender, MessageEventArgs e)
-            {
-             //   if (string.IsNullOrWhiteSpace(e.Data))
-              //      return;
-                Console.WriteLine("OnSend: " + e.Data + "<");
-                this.Send(new MessageBody(e.Data));
             }
 
             protected override void OnReceived(object sender, ReceivedMessageEventArgs e)
             {
                 var msg = e.Message.ToString();
-              //  if (string.IsNullOrWhiteSpace(msg))
-               //     return;
-                Console.WriteLine("OnRecv: "+e.Message + "<");
-                this._ws.Send(msg);
+                this._wss.WebSocketServices.Broadcast(msg);
             }
 
             private sealed class Broadcast : WebSocketBehavior
@@ -151,7 +130,7 @@ namespace Tsubaki.Test.Console
                 protected override void OnMessage(MessageEventArgs e)
                 {
                     Console.WriteLine(e.Data);
-                    this.Send(">>"+e.Data);
+                    this.Send(e.Data);
                 }
             }
         }
