@@ -10,9 +10,9 @@ namespace Tsubaki.Messaging.Diagnostics
 
     public sealed class ConsoleMessenger : MessengerBase
     {
-        public override void Send(MessageBody message)
+        public void Send(string message)
         {
-            base.Send(message);
+            this.Send(new MessageBody( message));
         }
 
         protected override void OnReceived(object sender, ReceivedMessageEventArgs e)

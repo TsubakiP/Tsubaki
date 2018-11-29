@@ -14,7 +14,7 @@ namespace Tsubaki.Test.MockAddon
 
         protected override bool ExecuteImpl(string[] args, IAddonInteractive interactive)
         {
-            interactive.Text("Mock Addon");
+            interactive.WriteText("Mock Addon");
             return true;
         }
     }

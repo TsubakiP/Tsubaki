@@ -6,6 +6,24 @@ namespace Tsubaki.Addons.Contracts
 {
     public interface IAddonInteractive
     {
-        void Text(string message);
+        void WriteText(string message);
+        bool IsFixed { get; }
+    }
+
+    public sealed class InteractiveBag : IAddonInteractive
+    {
+        private string _text = "";
+
+        public void WriteText(string message)
+        {
+            if (this.IsFixed)
+                return;
+
+            this._text = message;
+            this.IsFixed = true;
+        }
+
+        public override string ToString() => this._text;
+        public bool IsFixed { get; private set; }
     }
 }

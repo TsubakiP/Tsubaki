@@ -16,7 +16,7 @@ namespace Tsubaki.Messaging.EndPoints
 
         private event EventHandler<SentMessageEventArgs> _send;
 
-        public virtual void Send(MessageBody message)
+        protected virtual void Send(MessageBody message)
         {
             if (this._send is EventHandler<SentMessageEventArgs> @event)
                 @event.Invoke(this, new SentMessageEventArgs(message));
@@ -31,6 +31,11 @@ namespace Tsubaki.Messaging.EndPoints
             this.OnReceived(sender, e);
         }
 
+        /// <summary>
+        /// this method will not do anything
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected virtual void OnReceived(object sender, ReceivedMessageEventArgs e)
         {
         }

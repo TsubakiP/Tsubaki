@@ -116,22 +116,7 @@ namespace Tsubaki.Addons.Hosting
                 }
             }
         }
-
-        /*
-        public static IAddonActivation GetActivation(string name)
-        {
-            lock (((ICollection)s_container).SyncRoot)
-            {
-                foreach (var export in s_container)
-                {
-                    if (string.Equals(export.Metadata.Name, name, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        return export.Metadata;
-                    }
-                }
-            }
-            return NoAction.Singleton;
-        }*/
+         
 
         /// <summary>
         /// Gets the specified <see cref="IAddonContract"/>.

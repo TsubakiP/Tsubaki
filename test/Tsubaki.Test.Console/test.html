@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Test </title>
+    <script>
+        var ws = new WebSocket('ws://localhost:8888');
+        ws.onmessage = function (e) {
+            if (typeof e.data === 'string') {
+                var data = e.data;
+                console.log('received: ' + data);
+                var logger = document.getElementById('logger');
+                logger.innerHTML += '<div>' + data + '</div>';
+                logger.scrollTop = logger.scrollHeight;
+            }
+            else if (e.data instanceof ArrayBuffer) {
+            }
+        };
+
+        var send = function (id) {
+            var element = document.getElementById(id);
+            var message = element.value;
+            if (message != '')
+            {
+                ws.send(message);
+                element.value = '';
+            }
+        }
+    </script>
+    <style>
+        #logger
+        {
+            display: block;
+            background-color: #464646;
+            color: #ffffff;
+            width: 220px;
+            height: 150px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="logger"></div>    
+    <input type="text" id="chatbox">
+    <input type="submit" value="Send" onclick="send('chatbox');">
+</body>
+
+</html>
