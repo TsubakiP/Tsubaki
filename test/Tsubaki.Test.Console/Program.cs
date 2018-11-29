@@ -5,14 +5,11 @@
 namespace Tsubaki.Test.Console
 {
     using System;
-    using System.Diagnostics;
-    using System.IO;
     using System.Text;
     using Tsubaki.Addons.Contracts;
     using Tsubaki.Addons.Hosting;
     using Tsubaki.Addons.Hosting.Extensions;
     using Tsubaki.Messaging;
-    using Tsubaki.Messaging.EndPoints;
     using Tsubaki.Messaging.RelayPoints;
     using Tsubaki.Test.MockAddon;
     using WebSocketSharp;
@@ -20,63 +17,13 @@ namespace Tsubaki.Test.Console
 
     partial class Program
     {
-
-
-        public class Wss
-        {
-            private class Callback : WebSocketBehavior
-            {
-                protected override void OnMessage(MessageEventArgs e)
-                {
-                    /*
-                    var utf8 = Encoding.Unicode.GetBytes(e.Data);
-                    var utf8str = Encoding.UTF8.GetString(utf8);
-                    Console.OutputEncoding = Encoding.UTF8;*/
-                    Console.WriteLine("Server received: " + e.Data);
-                    this.Send(e.Data);
-                }
-            }
-            
-
-
-            private readonly WebSocketServer _server;
-
-            public Wss(int port)
-            {
-                this._server = new WebSocketServer(port);
-                this._server.AddWebSocketService<Callback>("/");
-                this._server.Start();
-                
-            }           
-        }
-
-        /*
-        public class Wsc : IAddonInteractive
-        {
-            private readonly WebSocket _client;
-            public Wsc(int port)
-            {
-                this._client = new WebSocket($"ws://localhost:{port}");
-                this._client.Connect();
-            }
-
-            public void Text(string message)
-            {
-                this._client.Send(message);
-            }
-        }
-        */
-
-
-
         private static void main()
         {
-
             var uia = new WsLocalhost();
             var df = new Dialogflow();
             df.Register(uia);
-            uia.CreateDebugClient();
-            uia.CreateDebugClient();
+            //uia.CreateDebugClient();
+            //uia.CreateDebugClient();
 
 
             /*
@@ -87,56 +34,13 @@ namespace Tsubaki.Test.Console
 
         }
 
-        public  sealed class WsLocalhost : MessengerBase
+        public sealed class Dialogflow : Lighthouse
         {
-
-#if DEBUG
-            /// <summary>
-            /// [Debug Only] Creates the new chrome client for debug. 
-            /// </summary>
-            /// <returns></returns>
-            public Process CreateDebugClient(string contentPath = "./test.html")
+            public Dialogflow()
             {
-                try
-                {
-                    var fi = new FileInfo(contentPath);
-                    
-                    return Process.Start("chrome.exe", $@"file://{fi.FullName}" + " --incognito");
-                }
-                catch (System.ComponentModel.Win32Exception)
-                {
-                    Debug.WriteLine("Unable to find Google Chrome, chrome.exe not found!");
-                }
-                return default(Process);
-            }
-#endif
-            private readonly WebSocketServer _wss;
-            public WsLocalhost(ushort userInterfacePort = 8888)
-            {
-                this._wss = new WebSocketServer(userInterfacePort);
-                this._wss.AddWebSocketService<Broadcast>("/");
-                this._wss.Start();
 
             }
 
-            protected override void OnReceived(object sender, ReceivedMessageEventArgs e)
-            {
-                var msg = e.Message.ToString();
-                this._wss.WebSocketServices.Broadcast(msg);
-            }
-
-            private sealed class Broadcast : WebSocketBehavior
-            {
-                protected override void OnMessage(MessageEventArgs e)
-                {
-                    Console.WriteLine(e.Data);
-                    this.Send(e.Data);
-                }
-            }
-        }
-
-        public class Dialogflow : Lighthouse
-        {
             protected override void OnReceived(object sender, SentMessageEventArgs e)
             {
                 /*

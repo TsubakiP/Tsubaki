@@ -7,14 +7,14 @@ ws.onmessage = function (e) {
         logger.innerHTML += '<div>' + data + '</div>';
         logger.scrollTop = logger.scrollHeight;
     }
-    else if (e.data instanceof ArrayBuffer) {
-    }
+    //else if (e.data instanceof ArrayBuffer) {
+    //}
 };
 
 var send = function (id) {
     var element = document.getElementById(id);
     var message = element.value;
-    if (message != '') {
+    if (message !== '') {
         ws.send(message);
         element.value = '';
     }

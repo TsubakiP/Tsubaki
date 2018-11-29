@@ -67,6 +67,7 @@
     <Compile Include="Program.Design.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WsLocalhost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
