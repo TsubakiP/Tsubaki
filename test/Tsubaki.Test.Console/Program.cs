@@ -9,21 +9,28 @@ namespace Tsubaki.Test.Console
     using Tsubaki.Addons.Contracts;
     using Tsubaki.Addons.Hosting;
     using Tsubaki.Addons.Hosting.Extensions;
+    using Tsubaki.Core;
     using Tsubaki.Messaging;
     using Tsubaki.Messaging.RelayPoints;
     using Tsubaki.Test.MockAddon;
     using WebSocketSharp;
     using WebSocketSharp.Server;
+    using System.Numerics;
 
     partial class Program
-    {
+    { 
+
+
         private static void main()
-        {
+        { 
+            /*
+
+
             var uia = new WsLocalhost();
             var df = new Dialogflow();
             df.Register(uia);
-            //uia.CreateDebugClient();
-            //uia.CreateDebugClient();
+            uia.CreateDebugClient();
+            uia.CreateDebugClient();
 
 
             /*
@@ -34,23 +41,5 @@ namespace Tsubaki.Test.Console
 
         }
 
-        public sealed class Dialogflow : Lighthouse
-        {
-            public Dialogflow()
-            {
-
-            }
-
-            protected override void OnReceived(object sender, SentMessageEventArgs e)
-            {
-                /*
-                 * todo: 實作上傳 e.Message 到 dialogflow.com 後取得的
-                 * API資料，並用 Send 函式發送給 UI 
-                 */
-
-                if (!string.IsNullOrWhiteSpace(e.Message.ToString()))
-                    this.Send(sender, new ReceivedMessageEventArgs(new MessageBody("DF: " + e.Message)));
-            }
-        }
     }
 }

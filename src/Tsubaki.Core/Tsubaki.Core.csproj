@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Dialogflow.v2" Version="1.36.1.1429" />
+    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj" />
+    <ProjectReference Include="..\Tsubaki.Addons\Tsubaki.Addons.csproj" />
+    <ProjectReference Include="..\Tsubaki.Configuration\Tsubaki.Configuration.csproj" />
+    <ProjectReference Include="..\Tsubaki.Messaging\Tsubaki.Messaging.csproj" />
+  </ItemGroup>
+
+</Project>
