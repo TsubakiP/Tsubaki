@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Addons", "src\Tsuba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Addons.Hosting", "src\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj", "{9FD09941-CB4C-45E2-AE8A-4EDF1D6436A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Messaging", "src\Tsubaki.Messaging\Tsubaki.Messaging.csproj", "{D1B3E7B0-BA59-47E6-BDD7-7DEA6BC293ED}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tsubaki.Test.Console", "test\Tsubaki.Test.Console\Tsubaki.Test.Console.csproj", "{4694E43A-2A9C-4F13-BA5B-6DACA83C5FDD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Test.MockAddon", "test\Tsubaki.Test.MockAddon\Tsubaki.Test.MockAddon.csproj", "{7D1FDB97-1C0C-456B-B8FA-82289725DC31}"
@@ -16,6 +14,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Configuration", "src\Tsubaki.Configuration\Tsubaki.Configuration.csproj", "{2709AD36-CF58-4B0E-BB14-0B7850B3B222}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tsubaki.Core", "src\Tsubaki.Core\Tsubaki.Core.csproj", "{4D757A4C-C21D-432B-BB88-718CE814BE4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DC383D74-140C-4FD0-80DA-2C4D36563F49}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +34,6 @@ Global
 		{9FD09941-CB4C-45E2-AE8A-4EDF1D6436A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD09941-CB4C-45E2-AE8A-4EDF1D6436A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD09941-CB4C-45E2-AE8A-4EDF1D6436A8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1B3E7B0-BA59-47E6-BDD7-7DEA6BC293ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1B3E7B0-BA59-47E6-BDD7-7DEA6BC293ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1B3E7B0-BA59-47E6-BDD7-7DEA6BC293ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1B3E7B0-BA59-47E6-BDD7-7DEA6BC293ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4694E43A-2A9C-4F13-BA5B-6DACA83C5FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4694E43A-2A9C-4F13-BA5B-6DACA83C5FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4694E43A-2A9C-4F13-BA5B-6DACA83C5FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -10,35 +10,21 @@ namespace Tsubaki.Test.Console
     using Tsubaki.Addons.Hosting;
     using Tsubaki.Addons.Hosting.Extensions;
     using Tsubaki.Core;
-    using Tsubaki.Messaging;
-    using Tsubaki.Messaging.RelayPoints;
     using Tsubaki.Test.MockAddon;
     using WebSocketSharp;
     using WebSocketSharp.Server;
     using System.Numerics;
+    using System.Diagnostics;
+    using Tsubaki.Core.Intents;
+    using Tsubaki.Tax;
 
     partial class Program
     { 
-
-
         private static void main()
-        { 
-            /*
-
-
-            var uia = new WsLocalhost();
-            var df = new Dialogflow();
-            df.Register(uia);
+        {
+            var client = new DialogflowClient("<token>");
+            var uia = new WsLocalhost(client);
             uia.CreateDebugClient();
-            uia.CreateDebugClient();
-
-
-            /*
-            var ia = new InteractiveBag();
-            if( Addons.Execute(new[] { "mock" }, new string[0], ia) == ExecutedResult.Success)
-            {
-            }*/
-
         }
 
     }

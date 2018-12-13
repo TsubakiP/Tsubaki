@@ -2,18 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>Tsubaki.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Dialogflow.v2" Version="1.36.1.1429" />
-    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
+    <PackageReference Include="System.Collections.Immutable" Version="1.6.0-preview.18571.3" />
+    <PackageReference Include="websocket-sharp-standard" Version="1.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Tsubaki.Addons.Hosting\Tsubaki.Addons.Hosting.csproj" />
     <ProjectReference Include="..\Tsubaki.Addons\Tsubaki.Addons.csproj" />
     <ProjectReference Include="..\Tsubaki.Configuration\Tsubaki.Configuration.csproj" />
-    <ProjectReference Include="..\Tsubaki.Messaging\Tsubaki.Messaging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ApiAi">
+      <HintPath>..\..\dll\ApiAi.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
