@@ -7,12 +7,9 @@ namespace Tsubaki.Test.Console
     using System;
     using System.Text;
     using Tsubaki.Addons.Contracts;
-    using Tsubaki.Addons.Hosting;
-    using Tsubaki.Addons.Hosting.Extensions;
+    using Tsubaki.Addons.Hosting; 
     using Tsubaki.Core;
     using Tsubaki.Test.MockAddon;
-    using WebSocketSharp;
-    using WebSocketSharp.Server;
     using System.Numerics;
     using System.Diagnostics;
     using Tsubaki.Core.Intents;

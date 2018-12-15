@@ -7,6 +7,7 @@ namespace Tsubaki.Addons.Hosting
     using System;
 
     using Tsubaki.Addons.Contracts;
+    using Tsubaki.Addons.Models;
 
     /// <summary>
     /// No action addon, When provider can't find the addon will return this instance back.
@@ -23,7 +24,7 @@ namespace Tsubaki.Addons.Hosting
 
         internal static NoAction Singleton { get; }
 
-        public bool? Execute(string[] args, IAddonInteractive interactive)
+        public bool? Execute(Domains domains, IAddonInteractive interactive)
         {
             return false;
         }

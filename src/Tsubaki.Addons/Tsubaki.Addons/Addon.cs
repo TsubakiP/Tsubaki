@@ -10,6 +10,7 @@ namespace Tsubaki.Addons
     using System.Runtime.InteropServices;
 
     using Tsubaki.Addons.Contracts;
+    using Tsubaki.Addons.Models;
 
     /// <summary>
     /// Provides basic features for the addon.
@@ -27,9 +28,9 @@ namespace Tsubaki.Addons
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        bool? IAddonContract.Execute(string[] args, IAddonInteractive interactive)
+        bool? IAddonContract.Execute(Domains domains, IAddonInteractive interactive)
         {
-            return this.ExecuteImpl(args, interactive);
+            return this.ExecuteImpl(domains, interactive);
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace Tsubaki.Addons
         /// <param name="args">The arguments.</param>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
-        protected abstract bool ExecuteImpl(string[] args, IAddonInteractive interactive);
+        protected abstract bool ExecuteImpl(Domains domains, IAddonInteractive interactive);
 
         /// <summary>
         /// Called when object initialize.

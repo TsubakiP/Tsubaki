@@ -6,13 +6,14 @@ namespace Tsubaki.Test.MockAddon
 {
     using Tsubaki.Addons;
     using Tsubaki.Addons.Contracts;
+    using Tsubaki.Addons.Models;
 
     [Addon("Mock", "mock")]
     public class Mock : Addon
     {
         public const string MOCK_ADDON = nameof(Mock);
 
-        protected override bool ExecuteImpl(string[] args, IAddonInteractive interactive)
+        protected override bool ExecuteImpl(Domains domains, IAddonInteractive interactive)
         {
             interactive.WriteText("Mock Addon");
             return true;

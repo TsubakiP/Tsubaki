@@ -6,6 +6,8 @@ namespace Tsubaki.Core
     using Tsubaki.Addons.Contracts;
     using WebSocketSharp;
     using System.Linq;
+    using Tsubaki.Addons.Models;
+    using System.Diagnostics;
 
     public sealed class WsLocalhost
     {
@@ -34,7 +36,8 @@ namespace Tsubaki.Core
                 if (e.IsText)
                 {
                     var q = this._client.Query(e.Data);
-                    var result = Addons.Hosting.Addons.Execute(q.Parameters.Keys.ToArray(), q.Parameters.Values.ToArray(), this);
+                    var domains = new Domains(q.Parameters);
+                    var result = Addons.Hosting.Addons.Execute(domains, this);
                     if (result != Addons.Hosting.ExecutedResult.Success)
                     {
                         this.WriteText("Module not found");

@@ -18,6 +18,7 @@ namespace Tsubaki.Addons.Hosting
 
     using Tsubaki.Addons.Contracts;
     using Tsubaki.Addons.Hosting.Internal;
+    using Tsubaki.Addons.Models;
 
     /// <summary>
     /// The addons container.
@@ -157,7 +158,7 @@ namespace Tsubaki.Addons.Hosting
         /// <param name="args">The arguments.</param>
         /// <param name="callback">The callback.</param>
         /// <returns></returns>
-        public static ExecutedResult Execute(string[] domains, string[] args, IAddonInteractive interactive)
+        public static ExecutedResult Execute(Domains domains, IAddonInteractive interactive)
         {
             var r = default(ExecutedResult);
 
@@ -172,10 +173,10 @@ namespace Tsubaki.Addons.Hosting
                     case 1:
                         {
                             var m = s_container[0];
-                            var diff = Diff.Compare(m.Metadata.Domains, domains);
+                            var diff = Diff.Compare(m.Metadata.Domains, domains.Keywords);
                             if (diff != 0.0 && Toggle[m.Metadata.Name])
                             {
-                                var result = m.CreateExport().Value.Execute(args, interactive);
+                                var result = m.CreateExport().Value.Execute(domains, interactive);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             else
@@ -189,7 +190,7 @@ namespace Tsubaki.Addons.Hosting
                             var a = default(ExportFactory<IAddonContract, AddonDefinition>);
                             foreach (var m in s_container)
                             {
-                                var diff = Diff.Compare(m.Metadata.Domains, domains);
+                                var diff = Diff.Compare(m.Metadata.Domains, domains.Keywords);
                                 // Debug.WriteLine("N: " + m.Metadata.Name + " | " + diff);
                                 if (diff >= top_v && Toggle[m.Metadata.Name])
                                 {
@@ -202,7 +203,7 @@ namespace Tsubaki.Addons.Hosting
                             else if (Toggle[a.Metadata.Name])
                             {
                                 //Found the highest similar object
-                                var result = a.CreateExport().Value.Execute(args, interactive);
+                                var result = a.CreateExport().Value.Execute(domains, interactive);
                                 r = result.HasValue ? (result.Value ? ExecutedResult.Success : ExecutedResult.Failure) : ExecutedResult.Disabled;
                             }
                             break;
