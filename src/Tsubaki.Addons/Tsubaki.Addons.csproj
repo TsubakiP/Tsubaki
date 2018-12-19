@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Helper\Helper.cs~RF12df7fd4.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Composition.AttributedModel" Version="1.2.0" />
   </ItemGroup>
 

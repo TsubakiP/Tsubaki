@@ -9,16 +9,18 @@ namespace Tsubaki.Addons.Models
     {
         private static readonly string EMPTY = $"{char.MinValue}{char.MinValue}{char.MinValue}{char.MinValue}";
         public static readonly Parameter Empty = new Parameter(EMPTY);
+
+        public bool HasValue { get; }
+
         private readonly string _value;
 
         internal Parameter(string value)
         {
-            this.IsEmpty = string.IsNullOrWhiteSpace(value);
-            this._value = this.IsEmpty ? EMPTY : value;
+            this.HasValue = !string.IsNullOrWhiteSpace(value); 
+            this._value = this.HasValue ? value : EMPTY;
 
         }
-
-        public bool IsEmpty { get; }
+         
 
         public override int GetHashCode() => this._value.GetHashCode();
 
@@ -32,7 +34,7 @@ namespace Tsubaki.Addons.Models
         {
             get
             {
-                if (this.IsEmpty)
+                if (!this.HasValue)
                     throw new InvalidOperationException("Empty value");
                 return this._value;
             }
@@ -40,7 +42,7 @@ namespace Tsubaki.Addons.Models
 
         public static implicit operator bool(Parameter parameter)
         {
-            return !parameter.IsEmpty;
+            return parameter.HasValue;
         }
     }
 }

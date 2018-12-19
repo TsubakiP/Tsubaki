@@ -19,7 +19,7 @@ namespace Tsubaki.Test.Console
     { 
         private static void main()
         {
-            var client = new DialogflowClient("<token>");
+            var client = new DialogflowClient("e03ae972dbf44fc79274468c468bcbe0");
             var uia = new WsLocalhost(client);
             uia.CreateDebugClient();
         }
